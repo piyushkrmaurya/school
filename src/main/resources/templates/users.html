@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<th:block th:include="head"></th:block>
+<body>
+    <th:block th:include="header"></th:block>
+
+    <section class="blog_area section_padding">
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-8 mb-5 mb-lg-0">
+               <h2>All users</h2>
+               <table>
+                  <tr th:each="user: ${users}">
+                     <td th:utext="${user.getUserId()}" />
+                     <td th:utext="${user.getName()}" />
+                     <td th:utext="${user.getGender()}" />
+                     <td th:utext="${user.getAddress()}" />
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+    </section>
+
+    <th:block th:include="footer"></th:block>
+    
+</body>
+
+</html>

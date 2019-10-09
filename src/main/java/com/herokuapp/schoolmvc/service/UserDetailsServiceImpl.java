@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.herokuapp.schoolmvc.dao.UserDAO;
+import com.herokuapp.schoolmvc.dao.RoleDAO;
 import com.herokuapp.schoolmvc.model.Role;
 import com.herokuapp.schoolmvc.model.User;
 import com.herokuapp.schoolmvc.model.UserType;
@@ -16,7 +17,6 @@ import com.herokuapp.schoolmvc.model.UserType;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.herokuapp.schoolmvc.dao.RoleDAO;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

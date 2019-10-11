@@ -3,13 +3,19 @@ package com.herokuapp.schoolmvc.model;
 public class Course {
     
     private Long courseId;
-    private String courseName;
+    private String name;
     private Long level;
+    private Long teacherid;
 
-    public Course(Long courseId, String courseName, Long level) {
+    public Course() {
+
+    }
+
+    public Course(Long courseId, String name, Long level, Long teacherid) {
         this.courseId = courseId;
-        this.courseName = courseName;
+        this.name = name;
         this.level = level;
+        this.teacherid = teacherid;
     }
 
     public Long getCourseId() {
@@ -20,19 +26,27 @@ public class Course {
         this.courseId = courseId;
     }
 
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
     public Long getLevel() {
         return level;
     }
 
     public void setLevel(Long level) {
         this.level = level;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getTeacherId() {
+        return teacherid;
+    }
+
+    public void setTeacherId(Long teacherid) {
+        this.teacherid = teacherid;
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class TeacherController {
+public class CourseController {
 
     @Autowired
     private ClassDAO classDao; 
@@ -20,15 +20,9 @@ public class TeacherController {
     @Autowired
     private CourseDAO courseDao; 
 
-    @RequestMapping(value = "/classes")
-    public String viewClasses(Model model){
-        model.addAttribute("classes", classDao.listAllClasses());
-        return "classes";
-    }
-
-    @RequestMapping(value = "/teacher/{id}/courses")
-    public String viewCourses(Model model, @PathVariable Long id){
-        model.addAttribute("courses", courseDao.listCoursesByTeacherId(id));
+    @RequestMapping(value = "/courses")
+    public String viewCourses(Model model){
+        model.addAttribute("courses", courseDao.listAllCourses());
         return "courses";
     }
 }

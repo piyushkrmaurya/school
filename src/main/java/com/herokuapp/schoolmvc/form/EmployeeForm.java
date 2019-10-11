@@ -3,14 +3,16 @@ package com.herokuapp.schoolmvc.form;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RolesForm {
+public class EmployeeForm {
+    private Long salary;
     private List<Long> roles;
     
-    public RolesForm(){
+    public EmployeeForm(){
         this.roles = new ArrayList<Long>();
     }
 
-    public RolesForm(List<Long> roles) {
+    public EmployeeForm(Long salary, List<Long> roles) {
+        this.salary = salary;
         this.roles = roles;
     }
 
@@ -24,5 +26,13 @@ public class RolesForm {
 
     public void setRoles(List<Long> roles) {
         this.roles = roles;
+    }
+
+    public Long getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Long salary) {
+        this.salary = salary;
     }
 }

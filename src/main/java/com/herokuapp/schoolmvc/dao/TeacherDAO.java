@@ -9,6 +9,7 @@ import com.herokuapp.schoolmvc.model.Course;
 import com.herokuapp.schoolmvc.model.Teacher;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -24,14 +25,10 @@ public class TeacherDAO extends JdbcDaoSupport {
     }
  
     public Teacher findTeacherById(Long id) {
-        String sql = TeacherMapper.BASE_SQL + " WHERE e.empid = ? ";
- 
-        Object[] params = new Object[] { id };
-        TeacherMapper mapper = new TeacherMapper();
+        String sql = TeacherMapper.BASE_SQL + " WHERE t.teacherid=" + id.toString();
         try {
-            Teacher userInfo = this.getJdbcTemplate().queryForObject(sql, params, mapper);
-            return userInfo;
-        } catch (EmptyResultDataAccessException e) {
+            return this.getJdbcTemplate().queryForObject(sql, new TeacherMapper());
+        } catch (DataAccessException e) {
             return null;
         }
     }

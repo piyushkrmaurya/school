@@ -23,13 +23,45 @@
                                     class="nav-item active">
                                     <a class="nav-link" th:href="@{/profile}">Profile</a>
                                 </li>
+                                <li sec:authorize="hasAuthority('TEACHER')" 
+                                    class="nav-item active">
+                                    <a class="nav-link" th:href="@{/classes}">
+                                        Classes
+                                    </a>
+                                </li>
+                                <li sec:authorize="hasAuthority('STUDENT')" 
+                                    class="nav-item active">
+                                    <a class="nav-link" th:href="@{/my-class}">
+                                        My Class
+                                    </a>
+                                </li>
+                                <li sec:authorize="hasAuthority('ADMIN')" 
+                                    class="nav-item active">
+                                    <a class="nav-link" th:href="@{/admin}">Admin</a>
+                                </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Pages
+                                        Manage
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="single-blog.html">Single blog</a>
-                                        <a class="dropdown-item" href="elements.html">Elements</a>
+                                        <a  sec:authorize="hasAuthority('USER_MANAGER')"  class="dropdown-item" th:href="@{/users}">
+                                            Users
+                                        </a>
+                                        <a  sec:authorize="hasAuthority('COURSE_MANAGER')"  class="dropdown-item" th:href="@{/courses}">
+                                            Courses
+                                        </a>
+                                        <a  sec:authorize="hasAuthority('ACCOUNT_MANAGER')"  class="dropdown-item" th:href="@{/manage-salary}">
+                                            Salary
+                                        </a>
+                                        <a  sec:authorize="hasAuthority('ACCOUNT_MANAGER')"  class="dropdown-item" th:href="@{/manage-fees}">
+                                            Fees
+                                        </a>
+                                        <a  sec:authorize="hasAuthority('EXPENSE_MANAGER')"  class="dropdown-item" th:href="@{/expenses}">
+                                            Expenses
+                                        </a>
+                                        <a  sec:authorize="hasAuthority('EVENT_MANAGER')"  class="dropdown-item" th:href="@{/manage-events}">
+                                            Events
+                                        </a>
                                     </div>
                                 </li>
                                 <li class="d-none d-lg-block">
@@ -39,8 +71,9 @@
                                     >
                                         Login
                                     </a>
-                                    <a th:if="${#request.userPrincipal != null}"
-                                        th:else th:href="@{/logout}" class="btn_1">
+                                    <a sec:authorize="isAuthenticated()" 
+                                        th:else th:href="@{/logout}" class="btn_1"
+                                    >
                                         Logout
                                     </a>
                                 </li>

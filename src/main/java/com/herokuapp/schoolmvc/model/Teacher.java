@@ -5,6 +5,10 @@ public class Teacher {
     private Long techerId;
     private String qualification;
 
+    public Teacher() {
+
+    }
+
     public Teacher(Long techerId, String qualification) {
         this.techerId = techerId;
         this.qualification = qualification;

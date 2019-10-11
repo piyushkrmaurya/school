@@ -23,6 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserDAO extends JdbcDaoSupport {
 
     @Autowired
+    private EmployeeDAO employeeDao;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
  
     @Autowired
@@ -61,7 +64,11 @@ public class UserDAO extends JdbcDaoSupport {
             return ps;
         }, keyHolder); 
 
-        return keyHolder.getKey().longValue();
+        Long userId = keyHolder.getKey().longValue();
+        
+        employeeDao.createEmployeeAccount(userId);
+
+        return userId;
     }
 
     public List<User> listUserAccounts() {

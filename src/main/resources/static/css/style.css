@@ -16,6 +16,7 @@
 /**************** common css start ****************/
 /* line 3, E:/172 Etrain Education/172_Etrain_Education_html/sass/_common.scss */
 body {
+  width: 100%;
   font-family: "Roboto", sans-serif;
   padding: 0;
   margin: 0;
@@ -2222,10 +2223,11 @@ ul {
 .dropdown .dropdown-menu {
   transition: all 0.5s;
   overflow: hidden;
-  transform-origin: top center;
-  transform: scale(1, 0);
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
   display: block;
-  margin-top: 32px;
+  margin-top: 0px;
 }
 
 /* line 80, E:/172 Etrain Education/172_Etrain_Education_html/sass/_menu.scss */
@@ -2242,7 +2244,8 @@ ul {
 
 /* line 90, E:/172 Etrain Education/172_Etrain_Education_html/sass/_menu.scss */
 .dropdown:hover .dropdown-menu {
-  transform: scale(1);
+  visibility: visible;
+  opacity: 1;
 }
 
 @media (max-width: 576px) {

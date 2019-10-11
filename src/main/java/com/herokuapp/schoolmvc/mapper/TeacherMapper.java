@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 public class TeacherMapper implements RowMapper<Teacher> {
  
-    public static final String BASE_SQL = "SELECT teacherid, qualification FROM Teacher t";
+    public static final String BASE_SQL = "SELECT * FROM Teacher t";
  
     @Override
     public Teacher mapRow(ResultSet rs, int rowNum) throws SQLException {

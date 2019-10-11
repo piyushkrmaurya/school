@@ -1,11 +1,9 @@
 package com.herokuapp.schoolmvc.dao;
 
-import java.util.Iterator;
 import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.herokuapp.schoolmvc.form.RolesForm;
 import com.herokuapp.schoolmvc.mapper.RoleMapper;
 import com.herokuapp.schoolmvc.model.Role;
 
@@ -42,22 +40,5 @@ public class RoleDAO extends JdbcDaoSupport {
  
         return roles;
     }
-
-    public void updateRoles(Long empId, RolesForm rolesForm){
-
-        String CLEAR_ROLES = "DELETE FROM Employee_Role WHERE empid=?";
-        this.getJdbcTemplate().update(CLEAR_ROLES, new Object[] {empId});
-
-        String ASSIGN_ROLES_SQL = "INSERT INTO Employee_Role VALUES";
-        Iterator<Long> roleIterator = rolesForm.getRoles().iterator();
-        while (roleIterator.hasNext()) {
-            Long roleId = roleIterator.next();
-            ASSIGN_ROLES_SQL += String.format("(%d, %d)", empId, roleId);
-            if(roleIterator.hasNext())
-                ASSIGN_ROLES_SQL += ",";
-        }
-        
-        this.getJdbcTemplate().update(ASSIGN_ROLES_SQL);
-    }
-     
+    
 }

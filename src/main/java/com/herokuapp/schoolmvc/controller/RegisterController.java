@@ -31,8 +31,6 @@ public class RegisterController {
         if (target == null) {
             return;
         }
-        System.out.println("Target=" + target);
-
         if (target.getClass() == User.class) {
             dataBinder.setValidator(userValidator);
         }
@@ -63,12 +61,12 @@ public class RegisterController {
 
         try {
             Long id = userDAO.createUserAccount(userForm);
-            redirectAttributes.addFlashAttribute("user", userForm);
 
-            if(userForm.getType().toString().equals("EMPLOYEE"))
+            if(userForm.getType().equals(UserType.EMPLOYEE))
                 return "redirect:/employee/"+id.toString();
             else
-                return "redirect:/registerSuccessful";
+                model.addAttribute("message", "User added successfully.");
+                return "successful";
         }
         catch (Exception e) {
             model.addAttribute("errorMessage", "Error: " + e.getMessage());
@@ -76,9 +74,9 @@ public class RegisterController {
         }
     }
 
-    @RequestMapping(value = "/registerSuccessful")
-    public String registerSuccessful(Model model){
-        return "registerSuccessful";
+    @RequestMapping(value = "/successful")
+    public String successful(Model model){
+        return "successful";
     }
     
 

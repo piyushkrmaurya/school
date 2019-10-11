@@ -17,7 +17,6 @@ import com.herokuapp.schoolmvc.model.UserType;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -37,6 +36,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         if(user.getType().equals(UserType.EMPLOYEE)){
             List<Role> roles = this.roleDAO.getAssignedRoles(user.getUserId());
+            if (roles != null) {
+                for (Role role : roles) {
+                    grantList.add(new SimpleGrantedAuthority(role.getRoleName()));
+                }
+            }
+        }
+
+        if(user.getType().equals(UserType.ADMIN)){
+            List<Role> roles = this.roleDAO.getAllRoles();
             if (roles != null) {
                 for (Role role : roles) {
                     grantList.add(new SimpleGrantedAuthority(role.getRoleName()));

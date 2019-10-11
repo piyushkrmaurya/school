@@ -25,16 +25,18 @@
                 <div class="col-sm-6 col-lg-4" th:each="course : ${courses}">
                     <div class="single_special_cource">
                         <div class="special_cource_text">
-                            <a href="course-details.html" class="btn_4" th:text="'Class' + ${course.getLevel()}" ></a>
+                            <a th:href="@{'/courses/'+${course.get_Class().getLevel()}}" class="btn_4" th:text="'Class' + ${course.get_Class().getLevel()}" ></a>
                             <a href="course-details.html">
                                 <h3 th:text="${course.getName()}" />
                             </a>
+                            Taught By 
+                            <a 
+                             th:href="@{'/teacher/'+${course.getTeacher().getTeacherId()}+'/courses'}"
+                             th:text="${course.getTeacher().getName()}" />
                             <div class="author_info">
                                 <div class="author_img">
-                                    <div class="author_info_text">
-                                        <p>Number of students:</p>
-                                        <h5>55</h5>
-                                    </div>
+                                    <p>Number of students:</p>
+                                    <h5>55</h5>
                                 </div>
                             </div>
                         </div>

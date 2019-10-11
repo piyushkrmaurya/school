@@ -1,12 +1,22 @@
 package com.herokuapp.schoolmvc.model;
 
-public class Employee {
+public class Employee extends User {
     
     private Long empId;
     private Long salary;
 
-    public Employee(Long empId, Long salary) {
+    public Employee(){
+
+    }
+
+    public Employee(Long empId, Long salary, String name, String gender, String address, UserType type) {
+        super(name, gender, address, type);
         this.empId = empId;
+        this.salary = salary;
+    }
+
+    public Employee(Long salary, String name, String gender, String address, UserType type){
+        super(name, gender, address, type);
         this.salary = salary;
     }
 

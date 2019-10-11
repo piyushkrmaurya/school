@@ -1,16 +1,19 @@
 package com.herokuapp.schoolmvc.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import com.herokuapp.schoolmvc.form.UserForm;
-import com.herokuapp.schoolmvc.mapper.UserMapper;
 import com.herokuapp.schoolmvc.model.User;
+import com.herokuapp.schoolmvc.model.UserType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -83,4 +86,24 @@ public class UserDAO extends JdbcDaoSupport {
         }
     }
  
+    public class UserMapper implements RowMapper<User> {
+ 
+        public static final String BASE_SQL = "SELECT userid, username, name, password, gender, address, type FROM User u";
+     
+        @Override
+        public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+     
+            Long userId = rs.getLong("userid");
+            String userName = rs.getString("username");
+            String name = rs.getString("name");
+            String password = rs.getString("password");
+            String gender = rs.getString("gender");
+            String address = rs.getString("address");
+            UserType type = UserType.valueOf(rs.getString("type"));
+     
+            return new User(userId, userName, name, password, gender, address, type);
+        }
+     
+    }
+
 }

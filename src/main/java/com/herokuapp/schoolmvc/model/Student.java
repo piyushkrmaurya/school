@@ -1,22 +1,27 @@
 package com.herokuapp.schoolmvc.model;
 
-public class Student{
-    private User user;
+public class Student extends User{
+    private Long studentId;
 
     public Student(){
         
     }
 
-    public Student(User user) {
-        this.user = user;
+    public Student(Long studentId, String qualification, Long salary, String name, String gender, String address, UserType type) {
+        super(name, gender, address, type);
+        this.studentId = studentId;
     }
 
-    public User getUser() {
-        return user;
+    public Student(Long studentId) {
+        this.studentId = studentId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public Long getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
     
 }

@@ -4,17 +4,39 @@
 <body>
     <th:block th:include="header"></th:block>
 
-    <section class="blog_area section_padding">
+    <section class="section_padding">
       <div class="container">
          <div class="row">
-            <div class="col-lg-8 mb-5 mb-lg-0">
-               <h2>All users</h2>
-               <table>
+            <div class="col-12">
+               <div class="row">
+                  <div class="col-6">
+                     <h2>All users</h2>
+                  </div>
+                  <div class="col-6">
+                     <a class="genric-btn default circle new_btn" th:href="@{/register}">
+                        Add New User
+                     </a>
+                  </div>
+               </div>
+               <br/>
+               <table class="data-table">
+                  <tr>
+                     <th>User Id</th>
+                     <th>Username</th>
+                     <th>Gender</th>
+                     <th>Address</th>
+                     <th>Actions</th>           
+                  </tr>
                   <tr th:each="user: ${users}">
                      <td th:utext="${user.getUserId()}" />
                      <td th:utext="${user.getName()}" />
                      <td th:utext="${user.getGender()}" />
                      <td th:utext="${user.getAddress()}" />
+                     <td>
+                        <a th:href="@{'user/'+${user.getUserId()}+'/edit'}">
+                           Edit
+                        </a>
+                     </td>
                   </tr>
                </table>
             </div>
@@ -24,6 +46,25 @@
 
     <th:block th:include="footer"></th:block>
     
+    <style type="text/css">
+      .data-table{
+         width: 100%;
+         border-collapse: collapse;
+         border-radius: 8px;
+         border-style: hidden;
+         box-shadow: 0 0 0 1px #ccc; 
+         text-align: center;
+      }
+      .data-table td, th{
+         font-size: 12pt;
+         height: 40px;
+         padding: 5px;
+         border: 1px solid #ccc;
+      }
+      .new_btn{
+         float: right;
+      }
+    </style>
 </body>
 
 </html>

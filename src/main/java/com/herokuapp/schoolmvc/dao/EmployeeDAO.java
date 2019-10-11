@@ -1,16 +1,19 @@
 package com.herokuapp.schoolmvc.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import com.herokuapp.schoolmvc.form.EmployeeForm;
-import com.herokuapp.schoolmvc.mapper.EmployeeMapper;
 import com.herokuapp.schoolmvc.model.Employee;
+import com.herokuapp.schoolmvc.model.UserType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +28,7 @@ public class EmployeeDAO extends JdbcDaoSupport {
     }
  
     public Employee findEmployeeById(Long id) {
-        String sql = EmployeeMapper.BASE_SQL + " WHERE e.empid = ? ";
+        String sql = EmployeeMapper.BASE_SQL + " AND e.empid = ? ";
  
         Object[] params = new Object[] { id };
         EmployeeMapper mapper = new EmployeeMapper();
@@ -67,6 +70,26 @@ public class EmployeeDAO extends JdbcDaoSupport {
     }
     
     public void listSalaryInstallments() {
+    }
+
+
+    public class EmployeeMapper implements RowMapper<Employee> {
+    
+        public static final String BASE_SQL = "SELECT * FROM Employee e, User u WHERE u.userid = e.empid";
+    
+        @Override
+        public Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
+    
+            Long empId = rs.getLong("empid");
+            Long salary = rs.getLong("salary");
+            String name = rs.getString("name");
+            String gender = rs.getString("gender");
+            String address = rs.getString("address");
+            UserType userType = UserType.valueOf(rs.getString("type"));
+
+            return new Employee(empId, salary, name, gender, address, userType);
+        }
+
     }
 
 }

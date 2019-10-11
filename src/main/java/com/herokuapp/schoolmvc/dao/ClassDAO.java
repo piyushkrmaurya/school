@@ -1,14 +1,15 @@
 package com.herokuapp.schoolmvc.dao;
 
-import java.util.Iterator;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.herokuapp.schoolmvc.mapper.ClassMapper;
 import com.herokuapp.schoolmvc.model._Class;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,20 @@ public class ClassDAO extends JdbcDaoSupport {
         List<_Class> classes = this.getJdbcTemplate().query(sql, new ClassMapper());
  
         return classes;
+    }
+
+    public class ClassMapper implements RowMapper<_Class> {
+ 
+        public static final String BASE_SQL = "SELECT * FROM Class c";
+     
+        @Override
+        public _Class mapRow(ResultSet rs, int rowNum) throws SQLException {
+     
+            Long level = rs.getLong("level");
+     
+            return new _Class(level);
+        }
+     
     }
      
 }

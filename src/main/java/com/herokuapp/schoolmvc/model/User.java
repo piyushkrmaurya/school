@@ -24,6 +24,13 @@ public class User {
         this.type = type;
     }
  
+    public User(String name, String gender, String address, UserType type){
+        this.name = name;
+        this.gender = gender;
+        this.address = address;
+        this.type = type;
+    }
+
     public Long getUserId() {
         return userId;
     }

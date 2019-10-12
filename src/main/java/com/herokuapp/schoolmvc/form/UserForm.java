@@ -1,5 +1,7 @@
 package com.herokuapp.schoolmvc.form;
 
+import java.util.List;
+
 import com.herokuapp.schoolmvc.model.UserType;
 
 public class UserForm {
@@ -10,21 +12,16 @@ public class UserForm {
     private String password;
     private String gender;
     private UserType type;
+    private Long level;
+    private String qualifications;
+    private Long salary;
+    private List<Long> roles;
+    private List<Long> courses;
  
     public UserForm() {
  
     }
 
-    public UserForm(String userName, String password, String name, String gender, String address,
-    UserType type) {
-        this.userName = userName;
-        this.password = password;
-        this.name = name;
-        this.gender = gender;
-        this.address = address;
-        this.type = type;
-    }
- 
     public String getUserName() {
         return userName;
     }
@@ -76,6 +73,46 @@ public class UserForm {
 
     public void setType(UserType type) {
         this.type = type;
+    }
+
+    public Long getLevel() {
+        return level;
+    }
+
+    public void setLevel(Long level) {
+        this.level = level;
+    }
+
+    public String getQualifications() {
+        return qualifications;
+    }
+
+    public void setQualifications(String qualifications) {
+        this.qualifications = qualifications;
+    }
+
+    public Long getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Long salary) {
+        this.salary = salary;
+    }
+
+    public List<Long> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Long> roles) {
+        this.roles = roles;
+    }
+
+    public List<Long> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Long> courses) {
+        this.courses = courses;
     }
  
 }

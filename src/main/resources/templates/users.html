@@ -3,7 +3,6 @@
 <th:block th:include="head"></th:block>
 <body>
     <th:block th:include="header"></th:block>
-
     <section class="section_padding">
       <div class="container">
          <div class="row">
@@ -13,28 +12,34 @@
                      <h2>All users</h2>
                   </div>
                   <div class="col-6">
-                     <a class="genric-btn default circle new_btn" th:href="@{/register}">
+                     <a class="btn btn-info new_btn" th:href="@{/register}">
+                        <i class="fas fa-user-plus"></i>                        
                         Add New User
                      </a>
                   </div>
                </div>
                <br/>
-               <table class="data-table">
+               <table class="table data-table">
+                  <thead class="thead-dark">
                   <tr>
-                     <th>User Id</th>
-                     <th>Username</th>
-                     <th>Gender</th>
-                     <th>Address</th>
-                     <th>Actions</th>           
+                     <th scope="col">User Id</th>
+                     <th scope="col">Username</th>
+                     <th scope="col">Gender</th>
+                     <th scope="col">Address</th>
+                     <th scope="col">Actions</th>           
                   </tr>
+                  </thead>
                   <tr th:each="user: ${users}">
-                     <td th:utext="${user.getUserId()}" />
-                     <td th:utext="${user.getName()}" />
-                     <td th:utext="${user.getGender()}" />
-                     <td th:utext="${user.getAddress()}" />
+                     <th scope="row" th:text="${user.getUserId()}" />
+                     <td th:text="${user.getName()}" />
+                     <td th:switch="${user.getGender()}">
+                        <span th:case="M" th:text="Male" class="text-info" />
+                        <span th:case="F" th:text="Female" class="text-danger" />
+                     </td>
+                     <td th:text="${user.getAddress()}" />
                      <td>
                         <a th:href="@{'user/'+${user.getUserId()}+'/edit'}">
-                           Edit
+                           <i class="fas fa-user-edit"></i>
                         </a>
                      </td>
                   </tr>
@@ -56,13 +61,15 @@
          text-align: center;
       }
       .data-table td, th{
+         font-family: "Poppins", sans-serif;
          font-size: 12pt;
          height: 40px;
-         padding: 5px;
          border: 1px solid #ccc;
       }
       .new_btn{
          float: right;
+         font-size: 10pt;
+         text-transform: uppercase;
       }
     </style>
 </body>

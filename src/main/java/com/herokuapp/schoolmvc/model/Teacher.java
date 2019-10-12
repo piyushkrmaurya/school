@@ -9,8 +9,8 @@ public class Teacher extends Employee{
 
     }
 
-    public Teacher(Long techerId, String qualification, Long salary, String name, String gender, String address, UserType type) {
-        super(salary, name, gender, address, type);
+    public Teacher(Long techerId, String qualification, Long salary, String userName, String name, String gender, String address, UserType type) {
+        super(salary, userName, name, gender, address, type);
         this.techerId = techerId;
         this.qualification = qualification;
     }

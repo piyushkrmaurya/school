@@ -24,7 +24,8 @@ public class User {
         this.type = type;
     }
  
-    public User(String name, String gender, String address, UserType type){
+    public User(String userName, String name, String gender, String address, UserType type){
+        this.userName = userName;
         this.name = name;
         this.gender = gender;
         this.address = address;

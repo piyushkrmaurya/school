@@ -1,20 +1,20 @@
 package com.herokuapp.schoolmvc.model;
 
 public class Enrollment{
+    private Long enrollId;
     private Student student;
     private _Class _class;
     private Status status;
-    private Grade grade;
 
     public Enrollment(){
         
     }
 
-    public Enrollment(Student student, _Class _class, Status status, Grade grade) {
+    public Enrollment(Long enrollId, Student student, _Class _class, Status status) {
+        this.enrollId = enrollId;
         this.student = student;
         this._class = _class;
         this.status = status;
-        this.grade = grade;
     }
 
     public Student getStudent() {
@@ -46,12 +46,12 @@ public class Enrollment{
         this.status = status;
     }
 
-    public Grade getGrade() {
-        return grade;
+    public Long getEnrollId() {
+        return enrollId;
     }
 
-    public void setGrade(Grade grade) {
-        this.grade = grade;
+    public void setEnrollId(Long enrollId) {
+        this.enrollId = enrollId;
     }
 
 }

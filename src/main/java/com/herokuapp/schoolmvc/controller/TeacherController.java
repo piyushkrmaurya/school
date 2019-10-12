@@ -25,10 +25,4 @@ public class TeacherController {
         model.addAttribute("classes", classDao.listAllClasses());
         return "classes";
     }
-
-    @RequestMapping(value = "/teacher/{id}/courses")
-    public String viewCourses(Model model, @PathVariable Long id){
-        model.addAttribute("courses", courseDao.listCoursesByTeacherId(id));
-        return "courses";
-    }
 }

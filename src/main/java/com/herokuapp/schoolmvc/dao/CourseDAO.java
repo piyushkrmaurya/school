@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import com.herokuapp.schoolmvc.form.CourseForm;
 import com.herokuapp.schoolmvc.model.Course;
 import com.herokuapp.schoolmvc.model.Teacher;
 import com.herokuapp.schoolmvc.model._Class;
@@ -41,6 +42,16 @@ public class CourseDAO extends JdbcDaoSupport {
         return courses;
     }
 
+    public Course findCoursesById(Long id){
+        String sql = CourseMapper.BASE_SQL + " WHERE c.courseid=" + id.toString();
+        
+        try {
+            return this.getJdbcTemplate().queryForObject(sql, new CourseMapper());
+        } catch (DataAccessException e) {
+            return null;
+        }
+    }
+
     public List<Course> listCoursesByTeacherId(Long id){
         String sql = CourseMapper.BASE_SQL + " WHERE c.teacherid=" + id.toString();
         
@@ -63,6 +74,12 @@ public class CourseDAO extends JdbcDaoSupport {
             List <Course> emptyList = new ArrayList<Course>();
             return emptyList;
         }
+    }
+
+    public void createCourse(CourseForm courseForm){
+        String CREATE_SQL = "INSERT INTO Course(name, level, teacherid) VALUES(?, ?, ?)";
+        Object[] params = new Object[] {courseForm.getName(), courseForm.getLevel(), courseForm.getTeacherId()};
+        this.getJdbcTemplate().update(CREATE_SQL, params);
     }
 
     public class CourseMapper implements RowMapper<Course> {

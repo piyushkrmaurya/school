@@ -67,50 +67,6 @@
   $(document).ready(function() {
     $('select').niceSelect();
   });
-  // menu fixed js code
-  $(window).scroll(function () {
-    var window_top = $(window).scrollTop() + 1;
-    if (window_top > 50) {
-      $('.main_menu').addClass('menu_fixed animated fadeInDown');
-    } else {
-      $('.main_menu').removeClass('menu_fixed animated fadeInDown');
-    }
-  });
-
-//   $(document).ready(function(){
-
-//     var owl_1 = $('#owl-1');
-//     var owl_2 = $('#owl-2');
-
-//     owl_1.owlCarousel({
-//       loop:true,
-//       margin:10,
-//       nav:false,
-//       items: 1,
-//       dots: false,
-//       navText: false,
-//       autoplay: true,
-      
-//     });
-//  owl_2.find(".item").click(function(){
-//     var slide_index = owl_2.find(".item").index(this);
-//     owl_1.trigger('to.owl.carousel',[slide_index,300]);
-//   });
-
-//     owl_2.owlCarousel({
-//       margin:50,
-//       nav: true,
-//       items: 3,
-//       dots: false,
-//       center: true,
-//       loop:true,
-//       navText: false,
-//       autoplay: true,
-//       center: true
-//     });
-    
-//   });
- 
 
 $('.counter').counterUp({
   time: 2000

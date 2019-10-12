@@ -69,7 +69,7 @@ public class UserDAO extends JdbcDaoSupport {
 
         Long userId = keyHolder.getKey().longValue();
         
-        employeeDao.createEmployeeAccount(userId);
+        employeeDao.createEmployeeAccount(userId, userForm);
 
         return userId;
     }

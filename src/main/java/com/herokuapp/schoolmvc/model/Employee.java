@@ -9,14 +9,14 @@ public class Employee extends User {
 
     }
 
-    public Employee(Long empId, Long salary, String name, String gender, String address, UserType type) {
-        super(name, gender, address, type);
+    public Employee(Long empId, Long salary, String userName, String name, String gender, String address, UserType type) {
+        super(userName, name, gender, address, type);
         this.empId = empId;
         this.salary = salary;
     }
 
-    public Employee(Long salary, String name, String gender, String address, UserType type){
-        super(name, gender, address, type);
+    public Employee(Long salary, String userName, String name, String gender, String address, UserType type){
+        super(userName, name, gender, address, type);
         this.salary = salary;
     }
 

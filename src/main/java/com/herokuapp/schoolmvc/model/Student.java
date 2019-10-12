@@ -7,8 +7,8 @@ public class Student extends User{
         
     }
 
-    public Student(Long studentId, String qualification, Long salary, String name, String gender, String address, UserType type) {
-        super(name, gender, address, type);
+    public Student(Long studentId, String userName, String name, String gender, String address, UserType type) {
+        super(userName, name, gender, address, type);
         this.studentId = studentId;
     }
 

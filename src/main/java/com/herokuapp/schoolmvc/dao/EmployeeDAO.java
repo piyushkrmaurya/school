@@ -8,6 +8,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.herokuapp.schoolmvc.form.EmployeeForm;
+import com.herokuapp.schoolmvc.form.UserForm;
 import com.herokuapp.schoolmvc.model.Employee;
 import com.herokuapp.schoolmvc.model.UserType;
 
@@ -26,6 +27,9 @@ public class EmployeeDAO extends JdbcDaoSupport {
     public EmployeeDAO(DataSource dataSource) {
         this.setDataSource(dataSource);
     }
+
+    @Autowired
+    private TeacherDAO teacherDao;
  
     public Employee findEmployeeById(Long id) {
         String sql = EmployeeMapper.BASE_SQL + " AND e.empid = ? ";
@@ -40,9 +44,16 @@ public class EmployeeDAO extends JdbcDaoSupport {
         }
     }
 
-    public void createEmployeeAccount(Long empId) {
-        String CREATE_SQL = "INSERT INTO Employee(empid) VALUES(?)";
-        this.getJdbcTemplate().update(CREATE_SQL, new Object[]{empId});
+    public void createEmployeeAccount(Long empId, UserForm userForm) {
+        String CREATE_SQL = String.format(
+        "INSERT INTO Employee SELECT * FROM (SELECT %d, %d) As e"+
+        " WHERE NOT EXISTS (SELECT * FROM Employee WHERE empid=%d)",
+        empId, userForm.getSalary(), empId
+        );
+        this.getJdbcTemplate().update(CREATE_SQL);
+        updateRoles(empId, userForm.getRoles());
+        if(userForm.getRoles().contains(Long.valueOf(1)))
+            teacherDao.createTeacherAccount(empId, userForm);
     }
 
     public void updateEmployee(Long empId, EmployeeForm empForm) {
@@ -62,8 +73,7 @@ public class EmployeeDAO extends JdbcDaoSupport {
         while (roleIterator.hasNext()) {
             Long roleId = roleIterator.next();
             ASSIGN_ROLES_SQL += String.format("(%d, %d)", empId, roleId);
-            if(roleIterator.hasNext())
-                ASSIGN_ROLES_SQL += ",";
+            if(roleIterator.hasNext()) ASSIGN_ROLES_SQL += ",";
         }
         
         this.getJdbcTemplate().update(ASSIGN_ROLES_SQL);
@@ -82,12 +92,13 @@ public class EmployeeDAO extends JdbcDaoSupport {
     
             Long empId = rs.getLong("empid");
             Long salary = rs.getLong("salary");
+            String userName = rs.getString("username");
             String name = rs.getString("name");
             String gender = rs.getString("gender");
             String address = rs.getString("address");
             UserType userType = UserType.valueOf(rs.getString("type"));
 
-            return new Employee(empId, salary, name, gender, address, userType);
+            return new Employee(empId, salary, userName, name, gender, address, userType);
         }
 
     }

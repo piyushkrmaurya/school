@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<th:block th:include="head"></th:block>
+<body>
+    <th:block th:include="header"></th:block>
+
+    <section class="blog_area section_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mb-5 mb-lg-0">
+                    <div class="col-12">
+                        <h2 class="contact-title">Update Course</h2>
+                    </div>
+                    <div class="col-lg-8">
+                        <form class="form-contact contact_form" th:action="@{/course/}" th:object="${courseForm}" method="POST">
+                            <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                <input class="form-control" th:field="*{name}" type="text" placeholder="Course name">
+                                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">..</span>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <div class="form-group">
+                                <select class="form-control" th:field="*{level}">
+                                    <option value="" data-display="Class">Select</option>
+                                    <option
+                                        th:each="class: ${classes}"
+                                        th:value="${class.getLevel()}"
+                                        th:text="${'Class '+class.getLevel()}" 
+                                    />
+                                </select>
+                                <span th:if="${#fields.hasErrors('level')}" th:errors="*{level}">..</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="form-group">
+                                <select class="form-control" th:field="*{teacherId}">
+                                    <option value="" data-display="Teacher">Select</option>
+                                    <option
+                                        th:each="teacher: ${teachers}"
+                                        th:value="${teacher.getTeacherId()}"
+                                        th:text="${teacher.getName()}" 
+                                    />
+                                </select>
+                                <span th:if="${#fields.hasErrors('teacherId')}" th:errors="*{teacherId}">..</span>
+                                </div>
+                            </div>
+                            <div class="col-12 form-group mt-3">
+                            <input type="submit" class="button button-contactForm btn_1" value="Update" />
+                            </div>
+                            <div class="col-12" th:if="${#request.getParameter('error') == 'true'}"></div>
+                            <span
+                                th:if="${errorMessage != null}"
+                                th:utext="${errorMessage}" class="error"
+                            />                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <th:block th:include="footer"></th:block>
+    
+</body>
+
+</html>

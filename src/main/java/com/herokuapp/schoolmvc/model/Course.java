@@ -33,11 +33,11 @@ public class Course {
         this.name = name;
     }
 
-    public _Class get_Class() {
+    public _Class get_class() {
         return _class;
     }
 
-    public void set_Class(_Class _class) {
+    public void set_class(_Class _class) {
         this._class = _class;
     }
 

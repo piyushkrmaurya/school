@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import com.herokuapp.schoolmvc.form.UserForm;
 import com.herokuapp.schoolmvc.model.Course;
 import com.herokuapp.schoolmvc.model.Teacher;
 import com.herokuapp.schoolmvc.model.UserType;
@@ -36,6 +37,23 @@ public class TeacherDAO extends JdbcDaoSupport {
         }
     }
 
+    public List<Teacher> listAllTeachers() {
+        String sql = TeacherMapper.BASE_SQL;
+        try {
+            return this.getJdbcTemplate().query(sql, new TeacherMapper());
+        } catch (DataAccessException e) {
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
+    public void createTeacherAccount(Long teacherId, UserForm userForm) {
+        String CREATE_SQL = String.format(
+        "INSERT INTO Teacher(teacherid, qualifications) SELECT * FROM (SELECT %d, '%s') As t"+ " WHERE NOT EXISTS (SELECT * FROM Teacher WHERE teacherid=%d)",
+        teacherId, userForm.getQualifications(), teacherId);
+        this.getJdbcTemplate().update(CREATE_SQL);
+    }
+
     public void assignCourses(Long id, List<Course> courses){
         
     }
@@ -50,12 +68,13 @@ public class TeacherDAO extends JdbcDaoSupport {
             Long teacherId = rs.getLong("teacherid");
             String qualifications = rs.getString("qualifications");
             Long salary = rs.getLong("salary");
+            String userName = rs.getString("username");
             String name = rs.getString("name");
             String gender = rs.getString("gender");
             String address = rs.getString("address");
             UserType userType = UserType.valueOf(rs.getString("type"));
 
-            return new Teacher(teacherId, qualifications, salary, name, gender, address, userType);
+            return new Teacher(teacherId, qualifications, salary, userName, name, gender, address, userType);
         }
      
     }

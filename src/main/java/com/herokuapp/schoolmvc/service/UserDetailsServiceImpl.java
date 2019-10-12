@@ -47,7 +47,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             List<Role> roles = this.roleDAO.getAllRoles();
             if (roles != null) {
                 for (Role role : roles) {
-                    grantList.add(new SimpleGrantedAuthority(role.getRoleName()));
+                    if(!role.getRoleName().equals("TEACHER"))
+                        grantList.add(new SimpleGrantedAuthority(role.getRoleName()));
                 }
             }
         }

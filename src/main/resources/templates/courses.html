@@ -7,12 +7,14 @@
 
     <th:block th:include="header"></th:block>
     
-     <section class="special_cource section_padding">
+     <section class="course section_padding">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-5">
                     <div class="section_tittle text-center">
                         <h2>Courses</h2>
+                        <h4 th:if="@{label!=null}" th:text="${label}">
+                        </h4>
                     </div>
                     <h3 class="text-center" th:if="${#lists.size(courses)} == 0">
                         <br/>
@@ -21,11 +23,19 @@
                     </h3>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-12">
+                    <a class="btn btn-info circle new_btn" th:href="@{/course/new}">
+                        <i class="fas fa-plus-circle"></i>                        
+                        Add New Course
+                    </a>
+                </div>
+                </div>
             <div th:if="${#lists.size(courses)} > 0" class="row">
                 <div class="col-sm-6 col-lg-4" th:each="course : ${courses}">
-                    <div class="single_special_cource">
-                        <div class="special_cource_text">
-                            <a th:href="@{'/courses/'+${course.get_Class().getLevel()}}" class="btn_4" th:text="'Class' + ${course.get_Class().getLevel()}" ></a>
+                    <div class="single_course">
+                        <div class="course_text">
+                            <a th:href="@{'/courses/'+${course.get_class().getLevel()}}" class="btn_4" th:text="'Class ' + ${course.get_class().getLevel()}" ></a>
                             <a href="course-details.html">
                                 <h3 th:text="${course.getName()}" />
                             </a>
@@ -33,8 +43,22 @@
                             <a 
                              th:href="@{'/teacher/'+${course.getTeacher().getTeacherId()}+'/courses'}"
                              th:text="${course.getTeacher().getName()}" />
-                            <div class="author_info">
-                                <div class="author_img">
+                             <br/>
+                            <a class="btn btn-success manage_btn" 
+                                sec:authorize="hasAuthority('COURSE_MANAGER')"
+                                th:href="@{'/course/'+${course.getCourseId()}+'/manage'}"
+                            >
+                                Manage
+                            </a>
+                            <a class="btn btn-success manage_btn" 
+                                sec:authorize="hasAuthority('TEACHER')"
+                                th:if="${#request.userPrincipal.name} == ${course.getTeacher().getUserName()}"
+                                th:href="@{'/course/'+${course.getCourseId()}+'/view'}"
+                            >
+                                Open
+                            </a>
+                            <div class="course_info">
+                                <div class="course_details">
                                     <p>Number of students:</p>
                                     <h5>55</h5>
                                 </div>
@@ -45,6 +69,17 @@
             </div>
         </div>
     </section>
+
+    <style>
+    .new_btn{
+         font-size: 10pt;
+         text-transform: uppercase;
+         margin-bottom: 20px;
+      }
+      .manage_btn{
+          margin: 20px 0 0;
+      }
+    </style>
 
     <th:block th:include="footer"></th:block>
     

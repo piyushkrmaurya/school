@@ -53,7 +53,15 @@ public class MainController {
  
         }
  
-        return "403Page";
+        return "403";
     }
+
+
+    @RequestMapping(value = "/eeeor", method = RequestMethod.GET)
+    public String errorView(Model model) {
+ 
+        return "error";
+    }
+ 
  
 }

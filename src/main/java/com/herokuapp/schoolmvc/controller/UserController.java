@@ -49,6 +49,7 @@ public class UserController {
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard(Model model, Principal principal) {
         User profile = userDao.findUserAccount(principal.getName());
+        model.addAttribute("profile", profile);
 
         if(profile.getType() == UserType.STUDENT){
             _Class _class = classDao.getCurrentClassByStudentId(profile.getUserId());

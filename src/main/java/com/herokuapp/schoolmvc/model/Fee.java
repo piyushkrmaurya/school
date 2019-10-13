@@ -3,20 +3,34 @@ package com.herokuapp.schoolmvc.model;
 import java.sql.Date;
 
 public class Fee {
-    Long feeId;
-    Student student;
-    Long amount;
-    Date date;
+    private Long feeId;
+    private Student student;
+    private Employee manager;
+    private Long amount;
+    private Date date;
+    private Month month;
+    private Long year;
 
-    public Fee(){
-        
+    public Fee() {
+
     }
 
-    public Fee(Long feeId, Student student, Long amount, Date date) {
-        this.student = student;
+    public Fee(Long feeId, Student student, Employee manager, Long amount, Month month, Long year, Date date) {
         this.feeId = feeId;
+        this.student = student;
+        this.manager = manager;
         this.amount = amount;
         this.date = date;
+        this.month = month;
+        this.year = year;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student employee) {
+        this.student = employee;
     }
 
     public Long getFeeId() {
@@ -43,12 +57,28 @@ public class Fee {
         this.date = date;
     }
 
-    public Student getStudent() {
-        return student;
+    public Month getMonth() {
+        return month;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setMonth(Month month) {
+        this.month = month;
+    }
+
+    public Long getYear() {
+        return year;
+    }
+
+    public void setYear(Long year) {
+        this.year = year;
+    }
+
+    public Employee getManager() {
+        return manager;
+    }
+
+    public void setManager(Employee manager) {
+        this.manager = manager;
     }
 
     

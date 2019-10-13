@@ -25,7 +25,7 @@ public class CourseController {
     private CourseDAO courseDao; 
 
     @Autowired
-    private TeacherDAO teacherDao; 
+    private TeacherDAO teacherDao;
 
     @RequestMapping(value = "/courses")
     public String viewCourses(Model model){

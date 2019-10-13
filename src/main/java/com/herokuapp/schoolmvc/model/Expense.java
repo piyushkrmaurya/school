@@ -2,19 +2,21 @@ package com.herokuapp.schoolmvc.model;
 
 import java.sql.Date;
 
-public class Expenditure {
+public class Expense {
     Long expenseId;
     Long cost;
     Date date;
+    Employee manager;
 
-    public Expenditure() {
+    public Expense() {
 
     }
 
-    public Expenditure(Long expenseId, Long cost, Date date) {
+    public Expense(Long expenseId, Long cost, Date date, Employee manager) {
         this.expenseId = expenseId;
         this.cost = cost;
         this.date = date;
+        this.manager = manager;
     }
 
     public Long getExpenseId() {
@@ -39,5 +41,13 @@ public class Expenditure {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Employee getManager() {
+        return manager;
+    }
+
+    public void setManager(Employee manager) {
+        this.manager = manager;
     }
 }

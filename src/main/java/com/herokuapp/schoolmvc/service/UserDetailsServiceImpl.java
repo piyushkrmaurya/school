@@ -44,6 +44,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         if(user.getType().equals(UserType.ADMIN)){
+            grantList.add(new SimpleGrantedAuthority("EMPLOYEE"));
             List<Role> roles = this.roleDAO.getAllRoles();
             if (roles != null) {
                 for (Role role : roles) {

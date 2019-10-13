@@ -23,55 +23,26 @@
                                     class="nav-item active">
                                     <a class="nav-link" th:href="@{/profile}">Profile</a>
                                 </li>
-                                <a class="nav-link active" th:href="@{/courses}">
-                                    Courses
-                                </a>
+                                <li class="nav-item active">
+                                    <a class="nav-link" th:href="@{/courses}">
+                                        Courses
+                                    </a>
+                                </li>
                                 <li class="nav-item active">
                                     <a class="nav-link" th:href="@{/classes}">
                                         Classes
                                     </a>
                                 </li>
-                                <li sec:authorize="hasAuthority('STUDENT')" 
+                                <li th:if="${#request.userPrincipal != null}" 
                                     class="nav-item active">
-                                    <a class="nav-link" th:href="@{/my-class}">
-                                        My Class
+                                    <a class="nav-link" th:href="@{/dashboard}">
+                                        Dashboard
                                     </a>
                                 </li>
-                                <li sec:authorize="hasAuthority('ADMIN')" 
+                                <!-- <li sec:authorize="hasAuthority('ADMIN')" 
                                     class="nav-item active">
                                     <a class="nav-link" th:href="@{/admin}">Admin</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a 
-                                        class="nav-link dropdown-toggle"
-                                        href="blog.html"
-                                        id="navbarDropdown"
-                                        role="button"
-                                        data-toggle="dropdown"
-                                        aria-haspopup="true"
-                                        aria-expanded="false"
-                                        sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')"
-                                    >
-                                        Manage
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a  sec:authorize="hasAuthority('USER_MANAGER')"  class="dropdown-item" th:href="@{/users}">
-                                            Users
-                                        </a>
-                                        <a  sec:authorize="hasAuthority('ACCOUNT_MANAGER')"  class="dropdown-item" th:href="@{/manage-salary}">
-                                            Salary
-                                        </a>
-                                        <a  sec:authorize="hasAuthority('ACCOUNT_MANAGER')"  class="dropdown-item" th:href="@{/manage-fees}">
-                                            Fees
-                                        </a>
-                                        <a  sec:authorize="hasAuthority('EXPENSE_MANAGER')"  class="dropdown-item" th:href="@{/expenses}">
-                                            Expenses
-                                        </a>
-                                        <a  sec:authorize="hasAuthority('EVENT_MANAGER')"  class="dropdown-item" th:href="@{/manage-events}">
-                                            Events
-                                        </a>
-                                    </div>
-                                </li>
+                                </li> -->
                                 <li class="d-none d-lg-block">
                                     <a th:if="${#request.userPrincipal == null}" 
                                         th:href="@{/login}"

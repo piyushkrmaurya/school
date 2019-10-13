@@ -39,6 +39,18 @@ public class StudentDAO extends JdbcDaoSupport {
         }
     }
 
+    public Student findStudentByUserName(String userName) {
+        String sql = StudentMapper.BASE_SQL + " AND u.username = ? ";
+ 
+        Object[] params = new Object[] { userName };
+        StudentMapper mapper = new StudentMapper();
+        try {
+            return this.getJdbcTemplate().queryForObject(sql, params, mapper);
+        } catch (DataAccessException e) {
+            return null;
+        }
+    }
+
     public void createStudentAccount(Long studentId, UserForm userForm) {
         String CREATE_SQL = String.format(
         "INSERT INTO Student SELECT * FROM (SELECT %d) AS s" + 

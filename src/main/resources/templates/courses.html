@@ -23,7 +23,7 @@
                     </h3>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" sec:authorize="hasAuthority('COURSE_MANAGER')">
                 <div class="col-12">
                     <a class="btn btn-info circle new_btn" th:href="@{/course/new}">
                         <i class="fas fa-plus-circle"></i>                        
@@ -57,12 +57,6 @@
                             >
                                 Open
                             </a>
-                            <div class="course_info">
-                                <div class="course_details">
-                                    <p>Number of students:</p>
-                                    <h5>55</h5>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

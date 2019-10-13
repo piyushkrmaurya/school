@@ -28,6 +28,12 @@ public class ClassDAO extends JdbcDaoSupport {
         return this.getJdbcTemplate().queryForObject(sql, new ClassMapper());
     }
 
+    public _Class getCurrentClassByStudentId(Long studentId) {
+        String sql = "SELECT * FROM Class c, Enrollment e WHERE c.level = e.level" + 
+        " AND e.studentid =  "+ studentId +" AND e.status = 'ONGOING' ";
+        return this.getJdbcTemplate().queryForObject(sql, new ClassMapper());
+    }
+
     public List<_Class> listAllClasses() {
         String sql = ClassMapper.BASE_SQL;
  

@@ -1,43 +1,68 @@
 <!doctype html>
 <html lang="en">
-
 <th:block th:include="head"></th:block>
-
 <body>
-
     <th:block th:include="header"></th:block>
-    
-     <section class="course section_padding">
+
+    <section class="blog_area section_padding">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-5">
-                    <div class="section_tittle text-center">
-                        <h2>Dashboard</h2>
-                        <h4 th:if="@{label!=null}" th:text="${label}">
-                        </h4>
-                    </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Dashboard</h2>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-6 col-lg-4">
-                    <div class="single_course card">
-                        <div class="course_text">
-                            <h4>Courses</h4>
+            <div class="col-12 feature_part">
+                <div class="row">
+                    <th:block th:include="dashboard/users" sec:authorize="hasAuthority('USER_MANAGER')" />
+
+                    <th:block th:include="dashboard/student-courses" sec:authorize="hasAuthority('STUDENT')" />
+
+                    <th:block th:include="dashboard/student-class" sec:authorize="hasAuthority('STUDENT')" />
+
+                    <th:block th:include="dashboard/teacher-courses" sec:authorize="hasAuthority('TEACHER')" />
+
+                    <div class="col-md-4 col-lg-3">
+                        <div class="single_feature">
+                            <div class="single_feature_part">
+                                <img src="/img/dashboard/events.png" />
+                                <h4>Events</h4>
+                            </div>
                         </div>
                     </div>
+
+                    <th:block th:include="dashboard/expenses" sec:authorize="hasAuthority('EXPENSE_MANAGER')" />
+
+
+                    <th:block th:include="dashboard/fees" sec:authorize="hasAuthority('STUDENT')" />
+                    
+                    <th:block th:include="dashboard/salary" sec:authorize="hasAuthority('TEACHER')" />
+
+                    <th:block th:include="dashboard/fees-salary" sec:authorize="hasAuthority('ACCOUNT_MANAGER')" />
+
+
                 </div>
             </div>
         </div>
     </section>
 
-    <style>
-    .card{
-
-    }
-    </style>
-
     <th:block th:include="footer"></th:block>
     
+    <style>
+        h2{
+            text-align: center;
+        }
+        .single_feature_part{
+            padding: 0 !important;
+            margin: 20px auto;
+            cursor: pointer;
+            height: 200px;
+            width: 200px;
+        }
+        .single_feature_part img{
+            border-radius: 8px;
+        }
+    </style>
+
 </body>
 
 </html>

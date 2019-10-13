@@ -1,9 +1,15 @@
 package com.herokuapp.schoolmvc.controller;
 
+import java.security.Principal;
+import java.util.List;
+
 import com.herokuapp.schoolmvc.dao.ClassDAO;
 import com.herokuapp.schoolmvc.dao.CourseDAO;
 import com.herokuapp.schoolmvc.dao.StudentDAO;
 import com.herokuapp.schoolmvc.form.EnrollmentForm;
+import com.herokuapp.schoolmvc.model.Course;
+import com.herokuapp.schoolmvc.model.Student;
+import com.herokuapp.schoolmvc.model._Class;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,18 +29,6 @@ public class StudentController {
 
     @Autowired
     private StudentDAO studentDao; 
-
-    @RequestMapping(value = "/student/{id}", method = RequestMethod.GET)
-    public String enrollStudent(Model model, @PathVariable Long id) {
-
-        model.addAttribute("student", studentDao.findStudentById(id));
-        
-        EnrollmentForm enrollForm = new EnrollmentForm();
-        
-        model.addAttribute("enrollForm", enrollForm);
-        
-        return "student-edit";
-    }
 
     @RequestMapping(value = "/class/{level}", method = RequestMethod.GET)
     public String viewClassStudents(Model model, @PathVariable Long level) {

@@ -30,7 +30,7 @@ public class NotificationDAO extends JdbcDaoSupport {
     CoursePageDAO coursePageDao;
 
     public List<Notification> listAllNotifications() {
-        String sql = NotificationMapper.BASE_SQL;
+        String sql = NotificationMapper.BASE_SQL + " ORDER BY noteid DESC";
  
         List<Notification> notifications = this.getJdbcTemplate().query(sql, new NotificationMapper());
  

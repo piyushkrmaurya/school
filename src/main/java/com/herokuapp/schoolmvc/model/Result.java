@@ -1,16 +1,18 @@
 package com.herokuapp.schoolmvc.model;
 
 public class Result {
-    Enrollment enrollment;
-    Grade grade;
+    private Enrollment enrollment;
+    private Grade grade;
+    private Course course;
 
     public Result() {
         
     }
 
-    public Result(Enrollment enrollment, Grade grade) {
+    public Result(Enrollment enrollment, Grade grade, Course course) {
         this.enrollment = enrollment;
         this.grade = grade;
+        this.course = course;
     }
 
     public Enrollment getEnrollment() {
@@ -27,6 +29,14 @@ public class Result {
 
     public void setGrade(Grade grade) {
         this.grade = grade;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
     
 }

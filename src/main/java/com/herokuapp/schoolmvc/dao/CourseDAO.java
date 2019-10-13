@@ -42,7 +42,7 @@ public class CourseDAO extends JdbcDaoSupport {
         return courses;
     }
 
-    public Course findCoursesById(Long id){
+    public Course findCourseById(Long id){
         String sql = CourseMapper.BASE_SQL + " WHERE c.courseid=" + id.toString();
         
         try {
@@ -80,6 +80,9 @@ public class CourseDAO extends JdbcDaoSupport {
         String CREATE_SQL = "INSERT INTO Course(name, level, teacherid) VALUES(?, ?, ?)";
         Object[] params = new Object[] {courseForm.getName(), courseForm.getLevel(), courseForm.getTeacherId()};
         this.getJdbcTemplate().update(CREATE_SQL, params);
+
+        String CP_SQL = "INSERT INTO CoursePage(courseid, year) VALUES((SELECT LAST_INSERT_ID()), "+courseForm.getYear()+")";
+        this.getJdbcTemplate().update(CP_SQL);
     }
 
     public class CourseMapper implements RowMapper<Course> {

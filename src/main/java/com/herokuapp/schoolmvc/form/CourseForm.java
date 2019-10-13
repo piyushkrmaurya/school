@@ -4,6 +4,7 @@ public class CourseForm {
     private String name;
     private Long level;
     private Long teacherId;
+    private Long year;
 
     public CourseForm() {
 
@@ -37,5 +38,13 @@ public class CourseForm {
 
     public void setTeacherId(Long teacherId) {
         this.teacherId = teacherId;
+    }
+
+    public Long getYear() {
+        return year;
+    }
+
+    public void setYear(Long year) {
+        this.year = year;
     }
 }

@@ -26,7 +26,7 @@ public class CoursePageDAO extends JdbcDaoSupport {
     }
 
     @Autowired
-    private CourseDAO courseDAO;
+    private CourseDAO courseDao;
 
     public CoursePage findCoursePageById(Long id){
         String sql = CoursePageMapper.BASE_SQL + " WHERE c.courseid=" + id;
@@ -62,7 +62,7 @@ public class CoursePageDAO extends JdbcDaoSupport {
         public CoursePage mapRow(ResultSet rs, int rowNum) throws SQLException {
      
             Long cpId = rs.getLong("cpid");
-            Course course = courseDAO.findCoursesById(rs.getLong("courseid"));
+            Course course = courseDao.findCourseById(rs.getLong("courseid"));
             Long year = rs.getLong("year");
      
             return new CoursePage(cpId, course, year);

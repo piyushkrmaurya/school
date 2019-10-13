@@ -37,15 +37,20 @@
               <div class="col-md-3 mb-3">
                 <div class="form-group">
                 <select class="form-control" th:field="*{teacherId}">
-                    <option value="" data-display="Teacher">Select</option>
-                    <option
-                        th:each="teacher: ${teachers}"
-                        th:value="${teacher.getTeacherId()}"
-                        th:text="${teacher.getName()}" 
-                    />
-                    </select>
+                  <option value="" data-display="Teacher">Select</option>
+                  <option
+                  th:each="teacher: ${teachers}"
+                  th:value="${teacher.getTeacherId()}"
+                  th:text="${teacher.getName()}" 
+                  />
+                </select>
                 <span th:if="${#fields.hasErrors('teacherId')}" th:errors="*{teacherId}">..</span>
-                </div>
+              </div>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-lg-6 form-group mt-3">
+                <input class="form-control" type="number" min="2000" max="2050"  th:field="*{year}" placeholder="Starting year" />
             </div>
             <div class="col-12 form-group mt-3">
               <input type="submit" class="button button-contactForm btn_1" value="submit" />

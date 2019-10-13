@@ -8,13 +8,21 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 mb-5 mb-lg-0">
-                    <h3 
+                    <h2 
                         th:text="${ coursePage.getCourse().getName() + ' Class ' + coursePage.getCourse().get_class().getLevel() + ' (' + coursePage.getYear() + ')'}"
                     />
+                    <a  th:href="@{'/declare-result/'+${coursePage.getCourse().getCourseId()}}"
+                    class="btn btn-info" sec:authorize="hasAuthority('TEACHER')">
+                        Declare Result
+                    </a>
                 </div>
-                <th:block th:include="notification-form" sec:authorize="hasAuthority('TEACHER')" />
             </div>
             <div class="row">
+                <div class="col-12">
+                    <br/>
+                    <h3>Notifications</h3>
+                </div>
+                <th:block th:include="notification-form" sec:authorize="hasAuthority('TEACHER')" />
                 <div class="col-12 note" th:each="notification : ${notifications}">
                     <h4 th:text="${notification.getDate()}" />
                     <p th:text="${notification.getText()}" />

@@ -71,7 +71,7 @@ public class CourseController {
         Model model,
         @PathVariable Long id
     ){
-        Course course = courseDao.findCoursesById(id);
+        Course course = courseDao.findCourseById(id);
         CourseForm courseForm = new CourseForm(course.getName(), course.get_class().getLevel(), course.getTeacher().getTeacherId());
         model.addAttribute("courseForm", courseForm);
         model.addAttribute("classes", classDao.listAllClasses());

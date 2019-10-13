@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<th:block th:include="head"></th:block>
+<body>
+    <th:block th:include="header"></th:block>
+
+    <section class="blog_area section_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mb-5 mb-lg-0">
+                    <h3 
+                        th:text="'Declare results for ' + ${ coursePage.getCourse().getName() + ' Class ' + coursePage.getCourse().get_class().getLevel() + ' (' + coursePage.getYear() + ')'}"
+                    />
+                    <br/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <form action="" method="POST" th:object="${resultForm}">
+                        <table class="table data-table">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Student Id</th>
+                                <th scope="col">Student Name</th>
+                                <th scope="col">Grade Obtained</th>
+                            </tr>
+                            </thead>
+                            <tr th:each="result, iter: *{results}">
+                                <input type="hidden" th:name="'results['+${__${iter.index}__}+'].enrollId'" th:value="${enrollments[__${iter.index}__].getEnrollId()}" />
+                                <th scope="row" th:text="${enrollments[__${iter.index}__].getStudent().getStudentId()}" />
+                                <td th:text="${enrollments[__${iter.index}__].getStudent().getName()}" />
+                                <td>
+                                <select th:field="*{results[__${iter.index}__].grade}">
+                                    <option th:each="grade: ${grades}" th:value="${grade}" th:text="${grade}" />
+                                </select>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="submit" class="button button-contactForm btn_1 mt-3" value="Delcare Final Result" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <style type="text/css">
+        .data-table{
+           width: 100%;
+           border-collapse: collapse;
+           border-radius: 8px;
+           border-style: hidden;
+           box-shadow: 0 0 0 1px #ccc; 
+           text-align: center;
+        }
+        .data-table td, th{
+           font-weight: 400;
+           font-family: "Poppins", sans-serif;
+           font-size: 10pt;
+           height: 20px;
+           padding: 5px;
+           text-align: center;
+           border: 1px solid #ccc;
+        }
+      </style>
+    <th:block th:include="footer"></th:block>
+    
+</body>
+
+</html>

@@ -2,6 +2,8 @@ package com.herokuapp.schoolmvc.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -36,6 +38,15 @@ public class EnrollmentDAO extends JdbcDaoSupport {
     @Autowired
     private StudentDAO studentDao; 
 
+    public Enrollment findEnrollmentById(Long enrollId) {
+        String SQL = "SELECT * FROM Enrollment WHERE enrollid=" + enrollId;
+        try{
+            return this.getJdbcTemplate().queryForObject(SQL, new EnrollmentMapper());
+        } catch (DataAccessException e) {
+            return null;
+        }
+    }
+
     public Enrollment getCurrentStudentEnrollment(Long studentId) {
         String SQL = "SELECT * FROM Enrollment WHERE studentid=" + 
                       studentId.toString()  + " AND status='ONGOING'";
@@ -43,6 +54,16 @@ public class EnrollmentDAO extends JdbcDaoSupport {
             return this.getJdbcTemplate().queryForObject(SQL, new EnrollmentMapper());
         } catch (DataAccessException e) {
             return null;
+        }
+    }
+
+    public List<Enrollment> listCurrentEnrollmentsByCourseId(Long courseId){
+        String SQL = "SELECT * from Enrollment e, Course c where c.courseid = " + courseId + 
+                     " AND e.level=c.level AND e.status='ONGOING'";
+        try{
+            return this.getJdbcTemplate().query(SQL, new EnrollmentMapper());
+        } catch (DataAccessException e) {
+            return new ArrayList<Enrollment>();
         }
     }
 

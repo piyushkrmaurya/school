@@ -4,17 +4,41 @@
 <body>
     <th:block th:include="header"></th:block>
 
-    <section class="blog_area section_padding">
+    <section class="course section_padding">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 mb-5 mb-lg-0">
-
+                <div class="col-lg-12 mb-5 mb-lg-0">
+                    <h3 
+                        th:text="${ coursePage.getCourse().getName() + ' Class ' + coursePage.getCourse().get_class().getLevel() + ' (' + coursePage.getYear() + ')'}"
+                    />
+                </div>
+                <th:block th:include="notification-form" sec:authorize="hasAuthority('TEACHER')" />
+            </div>
+            <div class="row">
+                <div class="col-12 note" th:each="notification : ${notifications}">
+                    <h4 th:text="${notification.getDate()}" />
+                    <p th:text="${notification.getText()}" />
                 </div>
             </div>
         </div>
     </section>
 
     <th:block th:include="footer"></th:block>
+
+    <style>
+        .contact_form{
+            margin-bottom: 50px;
+        }
+        .note {
+            margin: 10px auto 0;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            padding: 20px;
+        }
+        .note p{
+            font-size: 12pt;
+        }
+    </style>
     
 </body>
 

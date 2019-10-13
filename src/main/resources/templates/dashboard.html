@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<th:block th:include="head"></th:block>
+
+<body>
+
+    <th:block th:include="header"></th:block>
+    
+     <section class="course section_padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-5">
+                    <div class="section_tittle text-center">
+                        <h2>Dashboard</h2>
+                        <h4 th:if="@{label!=null}" th:text="${label}">
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-4">
+                    <div class="single_course card">
+                        <div class="course_text">
+                            <h4>Courses</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+    .card{
+
+    }
+    </style>
+
+    <th:block th:include="footer"></th:block>
+    
+</body>
+
+</html>

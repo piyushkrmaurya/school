@@ -5,7 +5,7 @@
   <th:block th:include="header"></th:block>
 
   <style>
-    .employee-section, #student-section, .teacher-section{
+    .employee-section, .student-section, .teacher-section{
       display: none;
     }
     .error{
@@ -69,7 +69,7 @@
                   <div th:if="${#fields.hasErrors('type')}" class="error" th:errors="*{type}">..</div>
                 </div>
               </div>
-              <div class="col-12 mb-3" id="student-section">
+              <div class="col-12 mb-3 student-section">
                 <div class="form-group">
                   <h4>Enroll student to class</h4>
                   <select class="form-control" th:field="*{level}">
@@ -81,6 +81,12 @@
                     />
                   </select>
                   <div th:if="${#fields.hasErrors('level')}" class="error" th:errors="*{level}">..</div>
+                </div>
+              </div>
+              <div class="col-6 mb-3 student-section">
+                <div class="form-group">
+                  <input type="number" placeholder="Session year" class="form-control" th:field="*{year}" min="2000" max="2050" />
+                  <div th:if="${#fields.hasErrors('year')}" class="error" th:errors="*{year}">..</div>
                 </div>
               </div>
               <div class="col-12 mb-3 employee-section">
@@ -162,8 +168,8 @@
       })
 
       $("#userForm").on("change", function(){
-        if($("#type").val()=="STUDENT") $("#student-section").fadeIn();
-        else $("#student-section").fadeOut();
+        if($("#type").val()=="STUDENT") $(".student-section").fadeIn();
+        else $(".student-section").fadeOut();
 
         if($("#type").val()=="EMPLOYEE") $(".employee-section").fadeIn();
         else $(".employee-section").fadeOut();

@@ -35,5 +35,13 @@ public class StudentController {
         
         return "student-edit";
     }
+
+    @RequestMapping(value = "/class/{level}", method = RequestMethod.GET)
+    public String viewClassStudents(Model model, @PathVariable Long level) {
+
+        model.addAttribute("students", studentDao.listStudentsByClass(level));
+        
+        return "students";
+    }
     
 }

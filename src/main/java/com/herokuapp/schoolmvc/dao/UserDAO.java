@@ -29,6 +29,9 @@ public class UserDAO extends JdbcDaoSupport {
     private EmployeeDAO employeeDao;
 
     @Autowired
+    private StudentDAO studentDAO;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
  
     @Autowired
@@ -69,7 +72,11 @@ public class UserDAO extends JdbcDaoSupport {
 
         Long userId = keyHolder.getKey().longValue();
         
-        employeeDao.createEmployeeAccount(userId, userForm);
+        if(userForm.getType().equals(UserType.EMPLOYEE))
+            employeeDao.createEmployeeAccount(userId, userForm);
+        
+        if(userForm.getType().equals(UserType.STUDENT))
+            studentDAO.createStudentAccount(userId, userForm);
 
         return userId;
     }

@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import com.herokuapp.schoolmvc.form.UserForm;
 import com.herokuapp.schoolmvc.model.Student;
 import com.herokuapp.schoolmvc.model.UserType;
 
@@ -32,8 +33,36 @@ public class StudentDAO extends JdbcDaoSupport {
         Object[] params = new Object[] { id };
         StudentMapper mapper = new StudentMapper();
         try {
-            Student userInfo = this.getJdbcTemplate().queryForObject(sql, params, mapper);
-            return userInfo;
+            return this.getJdbcTemplate().queryForObject(sql, params, mapper);
+        } catch (DataAccessException e) {
+            return null;
+        }
+    }
+
+    public void createStudentAccount(Long studentId, UserForm userForm) {
+        String CREATE_SQL = String.format(
+        "INSERT INTO Student SELECT * FROM (SELECT %d) AS s" + 
+        " WHERE NOT EXISTS (SELECT * FROM Student WHERE studentid=%d)",
+        studentId, studentId);
+        this.getJdbcTemplate().update(CREATE_SQL);
+        System.out.println(CREATE_SQL);
+        this.enrollStudent(studentId, userForm.getLevel(), userForm.getYear());
+    }
+
+    public void enrollStudent(Long studentId, Long level, Long year){
+        String SQL =  String.format(
+            "INSERT INTO Enrollment(studentid, level, status, year) VALUES(%d, %d, '%s', %d)",
+            studentId, level, "ONGOING", year
+            );
+
+        this.getJdbcTemplate().update(SQL);
+    }
+
+    public List<Student> listStudentsByClass(Long level) {
+        String sql = "SELECT * FROM Student s, User u, Enrollment e WHERE u.userid = s.studentid AND e.studentid = s.studentid AND e.level = " + level;
+        StudentMapper mapper = new StudentMapper();
+        try {
+            return this.getJdbcTemplate().query(sql, mapper);
         } catch (DataAccessException e) {
             return null;
         }

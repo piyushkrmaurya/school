@@ -1,0 +1,28 @@
+
+<div class="col-12">
+        <form class="form-contact contact_form" th:action="@{/notification/new}" th:object="${notificationForm}" method="POST">
+            <div class="row">
+                <div class="col-12">
+                    <input type="hidden" name="courseId"
+                        th:value="${coursePage.getCourse().getCourseId()}"
+                    />
+                    <input type="hidden" name="cpId"
+                        th:value="${coursePage.getCpId()}"
+                    />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 form-group">
+                    <textarea class="form-control" th:field="*{text}" placeholder="Post new notification" />
+                    <span th:if="${#fields.hasErrors('text')}" th:errors="*{text}">..</span>
+                    <input type="submit" class="button button-contactForm btn_1 mt-3" value="Post" />
+                </div>
+            </div>
+            <div class="col-12" th:if="${#request.getParameter('error') == 'true'}">
+                <span
+                    th:if="${errorMessage != null}"
+                    th:utext="${errorMessage}" class="error"
+                />              
+            </div>  
+        </form>
+</div>

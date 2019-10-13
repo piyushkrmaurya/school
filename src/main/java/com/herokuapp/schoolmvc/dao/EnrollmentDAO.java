@@ -46,12 +46,6 @@ public class EnrollmentDAO extends JdbcDaoSupport {
         }
     }
 
-    public void enrollStudent(Long studentId, Long level){
-        String SQL = "INSERT INTO Enrollment(studentid, level, status) VALUES(?, ?, ?)";
-
-        this.getJdbcTemplate().update(SQL, new Object[] {studentId, level, "ONGOING"});
-    }
-
     public class EnrollmentMapper implements RowMapper<Enrollment> {
     
         public static final String BASE_SQL = "SELECT * FROM Enrollment e, User u WHERE u.userid = e.empid";
@@ -63,7 +57,8 @@ public class EnrollmentDAO extends JdbcDaoSupport {
             Student student = studentDao.findStudentById(rs.getLong("studentid"));
             _Class _class = classDao.getClassByLevel(rs.getLong("level"));
             Status status = Status.valueOf(rs.getString("status"));
-            return new Enrollment(enrollId, student, _class, status);
+            Long year = rs.getLong("year");
+            return new Enrollment(enrollId, student, _class, status, year);
         }
 
     } 

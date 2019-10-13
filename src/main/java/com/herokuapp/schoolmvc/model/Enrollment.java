@@ -5,16 +5,18 @@ public class Enrollment{
     private Student student;
     private _Class _class;
     private Status status;
+    private Long year;
 
     public Enrollment(){
         
     }
 
-    public Enrollment(Long enrollId, Student student, _Class _class, Status status) {
+    public Enrollment(Long enrollId, Student student, _Class _class, Status status, Long year) {
         this.enrollId = enrollId;
         this.student = student;
         this._class = _class;
         this.status = status;
+        this.year = year;
     }
 
     public Student getStudent() {
@@ -52,6 +54,14 @@ public class Enrollment{
 
     public void setEnrollId(Long enrollId) {
         this.enrollId = enrollId;
+    }
+
+    public Long getYear() {
+        return year;
+    }
+
+    public void setYear(Long year) {
+        this.year = year;
     }
 
 }

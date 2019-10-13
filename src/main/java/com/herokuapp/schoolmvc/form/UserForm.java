@@ -13,6 +13,7 @@ public class UserForm {
     private String gender;
     private UserType type;
     private Long level;
+    private Long year;
     private String qualifications;
     private Long salary;
     private List<Long> roles;
@@ -113,6 +114,14 @@ public class UserForm {
 
     public void setCourses(List<Long> courses) {
         this.courses = courses;
+    }
+
+    public Long getYear() {
+        return year;
+    }
+
+    public void setYear(Long year) {
+        this.year = year;
     }
  
 }

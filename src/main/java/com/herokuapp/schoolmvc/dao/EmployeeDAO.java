@@ -2,6 +2,7 @@ package com.herokuapp.schoolmvc.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -30,6 +31,16 @@ public class EmployeeDAO extends JdbcDaoSupport {
 
     @Autowired
     private TeacherDAO teacherDao;
+
+    public List<Employee> listAllEmployees() {
+        String sql = EmployeeMapper.BASE_SQL;
+ 
+        try {
+            return this.getJdbcTemplate().query(sql, new EmployeeMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<Employee>();
+        }
+    }
  
     public Employee findEmployeeById(Long id) {
         String sql = EmployeeMapper.BASE_SQL + " AND e.empid = ? ";

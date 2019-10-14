@@ -35,13 +35,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
  
         http.csrf().disable();
  
-        http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
- 
-        http.authorizeRequests().antMatchers("/profile").authenticated();
+        http.authorizeRequests().antMatchers("/profile", "/dashboard").authenticated();
 
-        http.authorizeRequests().antMatchers("/users", "/user", "/employee/**").access("hasAnyAuthority('USER_MANAGER')");
- 
         http.authorizeRequests().antMatchers("/admin").access("hasAuthority('ADMIN')");
+
+        http.authorizeRequests().antMatchers("/users", "/user/**", "/employee/**").access("hasAuthority('USER_MANAGER')");
+
+        http.authorizeRequests().antMatchers("/course/**").access("hasAuthority('COURSE_MANAGER')");
+
+        http.authorizeRequests().antMatchers("teacher/**", "/notification/**", "/declare-result/**").access("hasAuthority('TEACHER')");
+
+        http.authorizeRequests().antMatchers("/course-page/**").access("hasAnyAuthority('TEACHER', 'STUDENT')");
+
+        http.authorizeRequests().antMatchers("/my-salaries").access("hasAuthority('EMPLOYEE')");
+
+        http.authorizeRequests().antMatchers("/my-fees").access("hasAuthority('STUDENT')");
+
+        http.authorizeRequests().antMatchers("/fees", "/receive-fees").access("hasAuthority('ACCOUNT_MANAGER')");
+
+        http.authorizeRequests().antMatchers("/salaries", "/dispatch-salary").access("hasAuthority('ACCOUNT_MANAGER')");
+
  
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
  
@@ -50,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .formLogin()
             .loginProcessingUrl("/j_spring_security_check")
             .loginPage("/login")
-            .defaultSuccessUrl("/profile")
+            .defaultSuccessUrl("/dashboard")
             .failureUrl("/login?error=true")
             .usernameParameter("username")
             .passwordParameter("password")

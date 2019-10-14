@@ -26,6 +26,7 @@ public class EmployeeController {
 
     @RequestMapping(value = "/employee/{id}", method = RequestMethod.GET)
     public String employeeEdit(Model model, @PathVariable Long id) {
+        model.addAttribute("title", "Edit roles");
 
         model.addAttribute("employee", employeeDao.findEmployeeById(id));
         

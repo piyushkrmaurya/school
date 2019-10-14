@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<th:block th:include="head"></th:block>
+<body>
+  <th:block th:include="header"></th:block>
+
+  <section class="contact-section section_padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="contact-title">Dispatch Salary</h2>
+        </div>
+        <div class="col-lg-8">
+          <form class="form-contact contact_form" action="" method="POST">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <select class="form-control" name="month">
+                    <option value="" data-display="Month">Select</option>
+                    <option
+                        th:each="month: ${months}"
+                        th:value="${month}"
+                        th:text="${month.toString()}" 
+                    />
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 form-group mt-3">
+                    <input class="form-control" type="number" min="2000" max="2050"  name="year" placeholder="Year" />
+                </div>
+                <div class="col-12 form-group mt-3">
+                <input type="submit" class="button button-contactForm btn_1" value="dispatch salary for all employees" />
+                </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <th:block th:include="footer"></th:block>
+
+</body>
+
+</html>

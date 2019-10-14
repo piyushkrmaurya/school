@@ -52,6 +52,7 @@ public class RegisterController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String viewRegister(Model model) {
+        model.addAttribute("title", "User Registration");
 
         model.addAttribute("userForm", new UserForm());
         model.addAttribute("userTypes", UserType.values());
@@ -70,6 +71,7 @@ public class RegisterController {
             BindingResult result,
             final RedirectAttributes redirectAttributes
     ) {
+        model.addAttribute("title", "User Registration");
 
         model.addAttribute("userTypes", UserType.values());
         model.addAttribute("classes", classDao.listAllClasses());

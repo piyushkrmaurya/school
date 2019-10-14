@@ -108,7 +108,7 @@
                   </div>
                   <div th:if="${#fields.hasErrors('roles')}" class="error" th:errors="*{roles}">..</div>
               </div>
-              <div class="col-6 mb-3 teacher-section">
+              <!-- <div class="col-6 mb-3 teacher-section">
                 <div class="form-group">
                   <h4>Assign courses to teacher</h4>
                   <select class="form-control" id="class-filter">
@@ -130,7 +130,7 @@
                   <label th:text="${course.getName()}" />
                 </div>
                 <div th:if="${#fields.hasErrors('courses')}" class="error" th:errors="*{courses}">..</div>
-              </div>
+              </div> -->
               <div class="col-12 teacher-section">
                   <div class="form-group">
                     <textarea class="form-control" th:field="*{qualifications}" type="text" placeholder="Teacher Qualifications" />

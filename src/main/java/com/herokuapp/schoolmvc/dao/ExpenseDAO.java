@@ -29,13 +29,18 @@ public class ExpenseDAO extends JdbcDaoSupport {
     @Autowired
     private EmployeeDAO employeeDao;
 
-    public List<Expense> listExpenses(Long empId){
-        String SQL = "SELECT * FROM Expense WHERE empId = " + empId;
+    public List<Expense> listAllExpenses(){
+        String SQL = ExpenseMapper.BASE_SQL;
+        return this.getJdbcTemplate().query(SQL, new ExpenseMapper());
+    }
+
+    public List<Expense> listExpensesByEmployeeId(Long empId){
+        String SQL = ExpenseMapper.BASE_SQL + "WHERE empId = " + empId;
         return this.getJdbcTemplate().query(SQL, new ExpenseMapper());
     }
 
     public void newExpense(Long empId, Long manger, Long amount, Month month){
-        String SQL = "INSERT INTO Expense(empid, manager, amount, month, date) VALUES(?, ?, ?, ?, ?)";
+        String SQL = "INSERT INTO Expense(manager, cost, date) VALUES(?, ?, ?)";
 
         this.getJdbcTemplate().update(SQL);
     }

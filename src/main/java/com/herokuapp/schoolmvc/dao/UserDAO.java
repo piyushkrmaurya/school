@@ -72,7 +72,7 @@ public class UserDAO extends JdbcDaoSupport {
 
         Long userId = keyHolder.getKey().longValue();
         
-        if(userForm.getType().equals(UserType.EMPLOYEE))
+        if(userForm.getType().equals(UserType.EMPLOYEE) || userForm.getType().equals(UserType.ADMIN))
             employeeDao.createEmployeeAccount(userId, userForm);
         
         if(userForm.getType().equals(UserType.STUDENT))

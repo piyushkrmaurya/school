@@ -59,7 +59,6 @@
                             </a>
                             <a class="btn btn-success manage_btn" 
                                 sec:authorize="hasAuthority('STUDENT')"
-                                th:if="${#request.userPrincipal.name} == ${course.getTeacher().getUserName()}"
                                 th:href="@{'/course-page/'+${course.getCourseId()}}"
                             >
                                 Open

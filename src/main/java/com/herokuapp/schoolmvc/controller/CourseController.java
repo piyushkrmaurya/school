@@ -29,6 +29,7 @@ public class CourseController {
 
     @RequestMapping(value = "/courses")
     public String viewCourses(Model model){
+        model.addAttribute("title", "All Courses");
         model.addAttribute("courses", courseDao.listAllCourses());
         return "courses";
     }
@@ -36,13 +37,15 @@ public class CourseController {
 
     @RequestMapping(value = "/courses/{level}")
     public String viewCoursesByClass(Model model, @PathVariable Long level){
+        model.addAttribute("title", "Courses Class "+level);
         model.addAttribute("courses", courseDao.listCoursesByClass(level));
         model.addAttribute("label", "Class "+level);
         return "courses";
     }
 
     @RequestMapping(value = "/teacher/{id}/courses")
-    public String viewCoursesByTeacher(Model model, @PathVariable Long id){
+    public String viewCoursesByTeacher(Model model, @PathVariable Long id) {
+        model.addAttribute("title", "My Courses");
         Teacher teacher = teacherDao.findTeacherById(id);
         model.addAttribute("courses", courseDao.listCoursesByTeacherId(id));
         model.addAttribute("label", "Taught By  "+teacher.getName());
@@ -50,7 +53,8 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/course/new", method = RequestMethod.GET)
-    public String newCourse(Model model){
+    public String newCourse(Model model) {
+        model.addAttribute("title", "New Course");
         model.addAttribute("courseForm", new CourseForm());
         model.addAttribute("classes", classDao.listAllClasses());
         model.addAttribute("teachers", teacherDao.listAllTeachers());
@@ -72,6 +76,7 @@ public class CourseController {
         @PathVariable Long id
     ){
         Course course = courseDao.findCourseById(id);
+        model.addAttribute("title", course.getName()+" Class "+course.get_class().getLevel());
         CourseForm courseForm = new CourseForm(course.getName(), course.get_class().getLevel(), course.getTeacher().getTeacherId());
         model.addAttribute("courseForm", courseForm);
         model.addAttribute("classes", classDao.listAllClasses());

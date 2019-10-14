@@ -15,13 +15,14 @@ public class MainController {
  
     @RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
     public String welcomePage(Model model) {
-        model.addAttribute("title", "Welcome");
+        model.addAttribute("title", "Home | GMSES");
         model.addAttribute("message", "This is welcome page!");
         return "index";
     }
  
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminPage(Model model, Principal principal) {
+        model.addAttribute("title", "Admin");
          
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
  
@@ -33,12 +34,14 @@ public class MainController {
  
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(Model model) {
+        model.addAttribute("title", "Login");
  
         return "login";
     }
  
     @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String accessDenied(Model model, Principal principal) {
+        model.addAttribute("title", "Access denied");
  
         if (principal != null) {
             User loginedUser = (User) ((Authentication) principal).getPrincipal();
@@ -57,8 +60,9 @@ public class MainController {
     }
 
 
-    @RequestMapping(value = "/eeeor", method = RequestMethod.GET)
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
     public String errorView(Model model) {
+        model.addAttribute("title", "Error");
  
         return "error";
     }

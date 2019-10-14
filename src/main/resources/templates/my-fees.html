@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<th:block th:include="head"></th:block>
+<body>
+    <th:block th:include="header"></th:block>
+    <section class="section_padding">
+      <div class="container">
+         <div class="row">
+            <div class="col-12">
+               <div class="row">
+                  <div class="col-6">
+                     <h2>My Fee Payments</h2>
+                  </div>
+               </div>
+               <br/>
+               <table class="table data-table">
+                  <thead class="">
+                  <tr>
+                     <th scope="col">Fee Id</th>    
+                     <th scope="col">Payment Month/Year</th>
+                     <th scope="col">Paid on</th>
+                     <th scope="col">Amount</th>
+                  </tr>
+                  </thead>
+                  <tr th:each="fee: ${fees}">
+                     <th scope="row" th:text="${fee.getFeeId()}" />
+                     <td th:text="${fee.getMonth() + ' ' + fee.getYear()}" />
+                     <td th:text="${fee.getDate()}" />
+                     <td th:text="${fee.getAmount()}" />
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+    </section>
+
+    <th:block th:include="footer"></th:block>
+    
+    <style type="text/css">
+      .data-table{
+         width: 100%;
+         border-collapse: collapse;
+         border-radius: 8px;
+         border-style: hidden;
+         box-shadow: 0 0 0 1px #ccc; 
+         text-align: center;
+      }
+      .data-table td, th{
+         font-family: "Poppins", sans-serif;
+         font-size: 10pt;
+         height: 40px;
+         border: 1px solid #ccc;
+      }
+      .new_btn{
+         float: right;
+         font-size: 10pt;
+         text-transform: uppercase;
+      }
+    </style>
+</body>
+
+</html>

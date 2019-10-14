@@ -35,7 +35,7 @@
 
                     <th:block th:include="dashboard/fees" sec:authorize="hasAuthority('STUDENT')" />
                     
-                    <th:block th:include="dashboard/salary" sec:authorize="hasAuthority('TEACHER')" />
+                    <th:block th:include="dashboard/salary" sec:authorize="hasAuthority('EMPLOYEE')" />
 
                     <th:block th:include="dashboard/fees-salary" sec:authorize="hasAuthority('ACCOUNT_MANAGER')" />
 

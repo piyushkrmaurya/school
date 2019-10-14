@@ -2,6 +2,7 @@ package com.herokuapp.schoolmvc.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -70,13 +71,30 @@ public class StudentDAO extends JdbcDaoSupport {
         this.getJdbcTemplate().update(SQL);
     }
 
+    public Long getCurrentFee(Long studentId) {
+        String SQL = "SELECT amount from FeeChart c, Student s, Enrollment e" +
+        " WHERE s.studentid = e.studentid AND e.level = c.level"+
+        " AND e.status = 'ONGOING' AND s.studentid = " + studentId;
+        return this.getJdbcTemplate().queryForObject(SQL, Long.class); 
+    }
+
+    public List<Student> listStudents() {
+        String sql = "SELECT * FROM Student s, User u WHERE u.userid = s.studentid";
+        StudentMapper mapper = new StudentMapper();
+        try {
+            return this.getJdbcTemplate().query(sql, mapper);
+        } catch (DataAccessException e) {
+            return new ArrayList<Student>();
+        }
+    }
+
     public List<Student> listStudentsByClass(Long level) {
         String sql = "SELECT * FROM Student s, User u, Enrollment e WHERE u.userid = s.studentid AND e.studentid = s.studentid AND e.level = " + level;
         StudentMapper mapper = new StudentMapper();
         try {
             return this.getJdbcTemplate().query(sql, mapper);
         } catch (DataAccessException e) {
-            return null;
+            return new ArrayList<Student>();
         }
     }
     

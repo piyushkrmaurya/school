@@ -33,15 +33,28 @@ public class FeeDAO extends JdbcDaoSupport {
     @Autowired
     private StudentDAO studentDao;
 
-    public List<Fee> listFeeInstallments(Long empId){
-        String SQL = "SELECT * FROM Fee WHERE empId = " + empId;
+    public List<Fee> listFeePayments(){
+        String SQL = "SELECT * FROM Fee";
         return this.getJdbcTemplate().query(SQL, new FeeMapper());
     }
 
-    public void newFeeInstallments(Long empId, Long manger, Long amount, Month month){
-        String SQL = "INSERT INTO Fee(empid, manager, amount, month, date) VALUES(?, ?, ?, ?, ?)";
+    public List<Fee> listFeePaymentsByStudntId(Long studentId){
+        String SQL = "SELECT * FROM Fee WHERE studentid = " + studentId;
+        return this.getJdbcTemplate().query(SQL, new FeeMapper());
+    }
 
-        this.getJdbcTemplate().update(SQL);
+
+    public void newFeePayment(Long studentId, Long manager, Long amount, String month, Long year){
+        String SQL = "INSERT INTO Fee(studentId, manager, amount, month, year, date) VALUES(?, ?, ?, ?, ?, ?)";
+        Object[] params = new Object[] {
+            studentId,
+            manager,
+            amount,
+            month,
+            year,
+            new java.sql.Date((new java.util.Date()).getTime())
+        };
+        this.getJdbcTemplate().update(SQL, params);
     }
 
     public class FeeMapper implements RowMapper<Fee> {
@@ -52,7 +65,7 @@ public class FeeDAO extends JdbcDaoSupport {
         public Fee mapRow(ResultSet rs, int rowNum) throws SQLException {
 
             Long feeId = rs.getLong("feeid");
-            Student student = studentDao.findStudentById(rs.getLong("empid"));
+            Student student = studentDao.findStudentById(rs.getLong("studentid"));
             Employee manager = employeeDao.findEmployeeById(rs.getLong("manager"));
             Long amount = rs.getLong("amount");
             Month month = Month.valueOf(rs.getString("month"));

@@ -37,8 +37,9 @@ public class UserController {
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String profile(Model model, Principal principal) {
- 
         User profile = userDao.findUserAccount(principal.getName());
+
+        model.addAttribute("title", "Profile "+profile.getName());
 
         model.addAttribute("profile", profile);
  
@@ -49,6 +50,9 @@ public class UserController {
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard(Model model, Principal principal) {
         User profile = userDao.findUserAccount(principal.getName());
+
+        model.addAttribute("title", "Dashboard "+profile.getName());
+
         model.addAttribute("profile", profile);
 
         if(profile.getType() == UserType.STUDENT){
@@ -68,6 +72,8 @@ public class UserController {
 
     @RequestMapping(value = "/users")
     public String welcomePage(Model model) {
+        model.addAttribute("title", "All Users");
+
         model.addAttribute("users", userDao.listUserAccounts());
         return "users";
     }

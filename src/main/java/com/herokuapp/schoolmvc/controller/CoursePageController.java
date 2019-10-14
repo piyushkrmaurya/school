@@ -2,22 +2,15 @@ package com.herokuapp.schoolmvc.controller;
 
 import java.util.List;
 
-import com.herokuapp.schoolmvc.dao.ClassDAO;
-import com.herokuapp.schoolmvc.dao.CourseDAO;
 import com.herokuapp.schoolmvc.dao.CoursePageDAO;
 import com.herokuapp.schoolmvc.dao.EnrollmentDAO;
 import com.herokuapp.schoolmvc.dao.NotificationDAO;
 import com.herokuapp.schoolmvc.dao.ResultDAO;
-import com.herokuapp.schoolmvc.dao.TeacherDAO;
-import com.herokuapp.schoolmvc.form.CourseForm;
-import com.herokuapp.schoolmvc.model.Course;
+import com.herokuapp.schoolmvc.form.NotificationForm;
+import com.herokuapp.schoolmvc.form.ResultForm;
 import com.herokuapp.schoolmvc.model.CoursePage;
 import com.herokuapp.schoolmvc.model.Enrollment;
 import com.herokuapp.schoolmvc.model.Grade;
-import com.herokuapp.schoolmvc.form.NotificationForm;
-import com.herokuapp.schoolmvc.form.ResultForm;
-import com.herokuapp.schoolmvc.form.SingleResult;
-import com.herokuapp.schoolmvc.model.Teacher;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

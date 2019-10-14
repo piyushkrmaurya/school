@@ -40,7 +40,7 @@
                      <td th:text="${user.getAddress()}" />
                      <td th:text="${user.getType().toString()}" />
                      <td>
-                        <a th:href="@{'user/'+${user.getUserId()}+'/edit'}">
+                        <a th:href="@{'/update-user/'+${user.getUserId()}}">
                            <i class="fas fa-user-edit"></i>
                         </a>
                      </td>

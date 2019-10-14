@@ -52,6 +52,19 @@ public class UserDAO extends JdbcDaoSupport {
         }
     }
 
+    public User findUserAccountById(Long id) {
+        String sql = UserMapper.BASE_SQL + " WHERE u.userid = ? ";
+ 
+        Object[] params = new Object[] { id };
+        UserMapper mapper = new UserMapper();
+        try {
+            User userInfo = this.getJdbcTemplate().queryForObject(sql, params, mapper);
+            return userInfo;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
     public Long createUserAccount(UserForm userForm) {
         String CREATE_SQL = "INSERT INTO User(username, password, name, gender, address, type) VALUES(?, ?, ?, ?, ?, ?)";
         String encrytedPassword = this.passwordEncoder.encode(userForm.getPassword());
@@ -80,6 +93,24 @@ public class UserDAO extends JdbcDaoSupport {
 
         return userId;
     }
+
+
+    public Long updateUserAccount(Long userId, UserForm userForm) {
+        String SQL = "UPDATE User SET password=?, name=?, gender=?, address=? WHERE id=?";
+        
+        String encrytedPassword = this.passwordEncoder.encode(userForm.getPassword());
+
+        this.getJdbcTemplate().update(SQL, new Object[] {encrytedPassword, userForm.getName(), userForm.getGender(), userForm.getAddress(), userId}); 
+
+        if(userForm.getType().equals(UserType.EMPLOYEE) || userForm.getType().equals(UserType.ADMIN))
+            employeeDao.updateRoles(userId, userForm.getRoles());
+        
+        if(userForm.getType().equals(UserType.STUDENT))
+            studentDAO.createStudentAccount(userId, userForm);
+
+        return userId;
+    }
+
 
     public List<User> listUserAccounts() {
         String sql = UserMapper.BASE_SQL;

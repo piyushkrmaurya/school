@@ -1,5 +1,6 @@
 package com.herokuapp.schoolmvc.form;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.herokuapp.schoolmvc.model.UserType;
@@ -16,7 +17,7 @@ public class UserForm {
     private Long year;
     private String qualifications;
     private Long salary;
-    private List<Long> roles;
+    private List<Long> roles = new ArrayList<Long>();
     private List<Long> courses;
  
     public UserForm() {
@@ -106,6 +107,10 @@ public class UserForm {
 
     public void setRoles(List<Long> roles) {
         this.roles = roles;
+    }
+
+    public void addRole(Long role) {
+        roles.add(role);
     }
 
     public List<Long> getCourses() {

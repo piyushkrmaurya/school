@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<th:block th:include="head"></th:block>
+<body>
+  <th:block th:include="header"></th:block>
+
+  <style>
+    .employee-section, .student-section, .teacher-section{
+      display: none;
+    }
+    .error{
+      color:#dc3545;
+      margin: 10px 5px;
+    }
+    h4{
+      margin-bottom: 15px;
+    }
+  </style>
+  <!-- ================ contact section start ================= -->
+  <section class="contact-section section_padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="contact-title">New User</h2>
+        </div>
+        <div class="col-lg-8">
+          <form id="userForm" class="form-contact contact_form" th:action="@{/register}" th:object="${userForm}" method="POST">
+            <div class="row">
+              <div class="col-6" style="display:none">
+                <div class="form-group">
+                  <input class="form-control" name="userName" value="${userForm.getUserName()}" type="hidden">
+                  <div th:if="${#fields.hasErrors('userName')}" class="error" th:errors="*{userName}">..</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <input class="form-control" th:field="*{password}" type="password" placeholder="Change password">
+                  <div th:if="${#fields.hasErrors('password')}" class="error" th:errors="*{password}">..</div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <input class="form-control" th:field="*{name}" type="text" placeholder="Name">
+                  <div th:if="${#fields.hasErrors('name')}" class="error" th:errors="*{name}">..</div>
+                </div>
+              </div>
+              <div class="col-6 mb-3">
+                <div class="form-group">
+                  <select class="form-control" th:field="*{gender}">
+                      <option value="" data-display="Gender">Select</option>
+                      <option value="M">Male</option>
+                      <option value="F">Female</option>
+                   </select>
+                   <br/>
+                  <div th:if="${#fields.hasErrors('gender')}" class="error" th:errors="*{gender}">..</div>
+                </div>
+              </div>
+              <div class="col-6 mb-3">
+                <div class="form-group">
+                      <input
+                        type="hidden"
+                        name="type"
+                        if="type"
+                        th:value="${userType}"
+                      />
+                </div>
+              </div>
+              <div class="col-12 mb-3 employee-section">
+                <div class="form-group">
+                  <h4>Employee salary</h4>
+                  <input type="text" class="form-control" th:field="*{salary}" placeholder="Enter salary" />
+                  <div th:if="${#fields.hasErrors('salary')}" class="error" th:errors="*{salary}">..</div>
+                </div>
+              </div>
+              <div class="col-6 mb-3 employee-section" id="rolelist">
+                  <h4>Modify roles of employee</h4>
+                  <div class="form-group" th:each="role: ${roles}">
+                    <input 
+                        type="checkbox" 
+                        th:value="${role.getRoleId()}" 
+                        th:field="*{roles}"
+                    />
+                    <label class="role" th:text="${role}" />
+                  </div>
+                  <div th:if="${#fields.hasErrors('roles')}" class="error" th:errors="*{roles}">..</div>
+              </div>
+              <div class="col-12 teacher-section">
+                  <div class="form-group">
+                    <textarea class="form-control" th:field="*{qualifications}" type="text" placeholder="Teacher Qualifications" />
+                    <div th:if="${#fields.hasErrors('qualifications')}" class="error" th:errors="*{qualifications}">..</div>
+                  </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <textarea class="form-control" th:field="*{address}" placeholder="Address" />
+                  <div th:if="${#fields.hasErrors('address')}" class="error" th:errors="*{address}">..</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group mt-3">
+              <input type="submit" class="button button-contactForm btn_1" value="submit" />
+            </div>
+            <div class="col-12" th:if="${#request.getParameter('error') == 'true'}"></div>
+              <span
+                th:if="${errorMessage != null}"
+                th:text="${errorMessage}" class="error"
+              />                
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <th:block th:include="footer"></th:block>
+  
+  <script>
+    $(document).ready(function() {
+      document.querySelectorAll(".role").forEach(role => {
+        role.innerHTML = role.innerHTML.split("_").join(" ");
+      })
+
+      $("#userForm").on("change", function(){
+        if($("#type").val()=="STUDENT") $(".student-section").fadeIn();
+        else $(".student-section").fadeOut();
+
+        if($("#type").val()=="EMPLOYEE") $(".employee-section").fadeIn();
+        else $(".employee-section").fadeOut();
+
+        var checked = [];
+        $.each($("#rolelist input[type='checkbox']:checked"), function(){
+          checked.push($(this).val());
+        });
+
+        if($("#type").val()=="EMPLOYEE" && checked.includes("1"))
+            $(".teacher-section").fadeIn();
+        else $(".teacher-section").fadeOut();
+
+      });
+    })
+  </script>
+
+
+</body>
+
+</html>

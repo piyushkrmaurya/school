@@ -12,9 +12,9 @@
                         th:text="${ coursePage.getCourse().getName() + ' Class ' + coursePage.getCourse().get_class().getLevel() + ' (' + coursePage.getYear() + ')'}"
                     />
                     <a  th:href="@{'/declare-result/'+${coursePage.getCourse().getCourseId()}}"
-                    class="btn btn-info" sec:authorize="hasAuthority('TEACHER')">
-                        Declare Result
-                    </a>
+                    class="btn btn-info" sec:authorize="hasAuthority('TEACHER')" th:text="'Declare Result'" th:if="${coursePage.getActive()}" />
+                    <a  th:href="@{'/results/'+${coursePage.getCpId()}}"
+                    class="btn btn-info" th:text="'Results Declared'" th:if="${coursePage.getActive() != True}" />
                 </div>
             </div>
             <div class="row">

@@ -115,13 +115,11 @@ public class RegisterController {
         Employee employee;
         Teacher teacher;
         if(profile.getType() == UserType.EMPLOYEE){
-            employee = teacherDAO.findTeacherById(profile.getUserId());
+            employee = employeeDAO.findEmployeeById(profile.getUserId());
             userForm.setSalary(employee.getSalary());
             List<Role> assignedRoles = roleDAO.getAssignedRoles(employee.getEmpId());
             for(Role role: assignedRoles) {
                 userForm.addRole(role.getRoleId());
-            }
-            for(Role role: assignedRoles) {
                 if(role.toString().equals("TEACHER")){
                     teacher = teacherDAO.findTeacherById(profile.getUserId());
                     userForm.setQualifications(teacher.getQualification());
@@ -129,14 +127,9 @@ public class RegisterController {
             }
         }
         userForm.setUserName(profile.getUserName());
-        userForm.setQualifications(profile.getUserName());
         userForm.setName(profile.getName());
         userForm.setAddress(profile.getAddress());
         userForm.setGender(profile.getGender());
-
-        List<Role> roles = roleDAO.getAllRoles();
-
-        model.addAttribute("roles", roles);        
 
         model.addAttribute("title", "Update User");
         model.addAttribute("userForm", userForm);
@@ -149,7 +142,7 @@ public class RegisterController {
     public String updateUserView(
             Model model,
             @PathVariable Long id,
-            @ModelAttribute("userForm") @Validated UserForm userForm,
+            @ModelAttribute("userForm") UserForm userForm,
             BindingResult result,
             final RedirectAttributes redirectAttributes
     ) {
@@ -168,6 +161,7 @@ public class RegisterController {
             return "successful";
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             model.addAttribute("errorMessage", "Some error occurred");
             return "update-user";
         }

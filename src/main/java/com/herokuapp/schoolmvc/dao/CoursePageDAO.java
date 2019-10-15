@@ -64,8 +64,9 @@ public class CoursePageDAO extends JdbcDaoSupport {
             Long cpId = rs.getLong("cpid");
             Course course = courseDao.findCourseById(rs.getLong("courseid"));
             Long year = rs.getLong("year");
+            Boolean active = rs.getBoolean("active");
      
-            return new CoursePage(cpId, course, year);
+            return new CoursePage(cpId, course, year, active);
         }
      
     }

@@ -72,4 +72,10 @@ public class CoursePageController {
         resultDao.createResultForCourse(courseId, resultForm);
         return "redirect:/successful";
     }
+
+    @RequestMapping(value = "/results/{cpid}", method = RequestMethod.GET)
+    public String declareResult(Model model, @PathVariable("cpid") Long cpId){
+        model.addAttribute("results", resultDao.getResultsByCpid(cpId));
+        return "results";
+    }
 }

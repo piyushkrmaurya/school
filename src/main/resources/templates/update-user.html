@@ -24,18 +24,12 @@
           <h2 class="contact-title">New User</h2>
         </div>
         <div class="col-lg-8">
-          <form id="userForm" class="form-contact contact_form" th:action="@{/register}" th:object="${userForm}" method="POST">
+          <form id="userForm" class="form-contact contact_form" action="" th:object="${userForm}" method="POST">
             <div class="row">
               <div class="col-6" style="display:none">
                 <div class="form-group">
-                  <input class="form-control" name="userName" value="${userForm.getUserName()}" type="hidden">
+                  <input class="form-control" name="userName" th:value="${userForm.getUserName()}" type="hidden">
                   <div th:if="${#fields.hasErrors('userName')}" class="error" th:errors="*{userName}">..</div>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="form-group">
-                  <input class="form-control" th:field="*{password}" type="password" placeholder="Change password">
-                  <div th:if="${#fields.hasErrors('password')}" class="error" th:errors="*{password}">..</div>
                 </div>
               </div>
               <div class="col-12">

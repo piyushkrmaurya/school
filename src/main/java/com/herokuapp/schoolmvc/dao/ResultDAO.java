@@ -46,6 +46,12 @@ public class ResultDAO extends JdbcDaoSupport {
         return this.getJdbcTemplate().queryForObject(SQL, new ResultMapper());
     }
 
+    public List<Result> getResultsByCpid(Long cpId) {
+        String SQL = "select * from Result r, CoursePage cp WHERE r.courseid = cp.courseid AND cp.cpid = " + cpId;
+        System.out.println(SQL);
+        return this.getJdbcTemplate().query(SQL, new ResultMapper());
+    }
+
     public void createResultForCourse(Long courseId, ResultForm resultForm) {
         String SQL = "INSERT INTO Result(enrollid, courseid, grade) VALUES(?, ?, ?)";
         this.getJdbcTemplate().batchUpdate(
@@ -62,6 +68,8 @@ public class ResultDAO extends JdbcDaoSupport {
                 return resultForm.getResults().size();
             }
         });
+        String CP_SQL = "UPDATE CoursePage SET active = 0 WHERE active = 1 AND courseid = " + courseId;
+        this.getJdbcTemplate().update(CP_SQL);
     }
 
     public class ResultMapper implements RowMapper<Result> {
@@ -73,7 +81,6 @@ public class ResultDAO extends JdbcDaoSupport {
     
             Enrollment enrollment = enrollDao.findEnrollmentById(rs.getLong("enrollid"));
             Course course = courseDao.findCourseById(rs.getLong("courseid"));
-            String name = rs.getString("name");
             Grade grade = Grade.valueOf(rs.getString("grade"));
 
             return new Result(enrollment, grade, course);

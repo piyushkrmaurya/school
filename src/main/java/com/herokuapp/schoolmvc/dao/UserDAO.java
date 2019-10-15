@@ -96,17 +96,9 @@ public class UserDAO extends JdbcDaoSupport {
 
 
     public Long updateUserAccount(Long userId, UserForm userForm) {
-        String SQL = "UPDATE User SET password=?, name=?, gender=?, address=? WHERE id=?";
+        String SQL = "UPDATE User SET name=?, gender=?, address=? WHERE userid=?";
         
-        String encrytedPassword = this.passwordEncoder.encode(userForm.getPassword());
-
-        this.getJdbcTemplate().update(SQL, new Object[] {encrytedPassword, userForm.getName(), userForm.getGender(), userForm.getAddress(), userId}); 
-
-        if(userForm.getType().equals(UserType.EMPLOYEE) || userForm.getType().equals(UserType.ADMIN))
-            employeeDao.updateRoles(userId, userForm.getRoles());
-        
-        if(userForm.getType().equals(UserType.STUDENT))
-            studentDAO.createStudentAccount(userId, userForm);
+        this.getJdbcTemplate().update(SQL, new Object[] {userForm.getName(), userForm.getGender(), userForm.getAddress(), userId}); 
 
         return userId;
     }

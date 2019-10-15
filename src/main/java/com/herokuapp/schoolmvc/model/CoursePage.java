@@ -4,11 +4,13 @@ public class CoursePage{
     private Long cpId;
     private Course course;
     private Long year;
+    private Boolean active;
 
-    public CoursePage(Long cpId, Course course, Long year) {
+    public CoursePage(Long cpId, Course course, Long year, Boolean active) {
         this.cpId = cpId;
         this.course = course;
         this.year = year;
+        this.active = active;
     }
 
     public Long getCpId() {
@@ -33,6 +35,14 @@ public class CoursePage{
 
     public void setYear(Long year) {
         this.year = year;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     

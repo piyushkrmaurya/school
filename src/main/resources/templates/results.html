@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<th:block th:include="head"></th:block>
+<body>
+    <th:block th:include="header"></th:block>
+
+    <section class="blog_area section_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mb-5 mb-lg-0">
+                    <h3>Results</h3>
+                    <br/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                        <table class="table data-table">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Student Id</th>
+                                <th scope="col">Student Name</th>
+                                <th scope="col">Grade Obtained</th>
+                            </tr>
+                            </thead>
+                            <tr th:each="result, iter: ${results}">
+                                <th scope="row" th:text="${result.getEnrollment().getEnrollId()}" />
+                                <td th:text="${result.getEnrollment().getStudent().getName()}" />
+                                <td th:text="${result.getGrade()}"></td>
+                            </tr>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <style type="text/css">
+        .data-table{
+           width: 100%;
+           border-collapse: collapse;
+           border-radius: 8px;
+           border-style: hidden;
+           box-shadow: 0 0 0 1px #ccc; 
+           text-align: center;
+        }
+        .data-table td, th{
+           font-weight: 400;
+           font-family: "Poppins", sans-serif;
+           font-size: 10pt;
+           height: 20px;
+           padding: 5px;
+           text-align: center;
+           border: 1px solid #ccc;
+        }
+      </style>
+    <th:block th:include="footer"></th:block>
+    
+</body>
+
+</html>

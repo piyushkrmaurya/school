@@ -55,7 +55,7 @@ CREATE TABLE `Course` (
   KEY `teacherid` (`teacherid`),
   CONSTRAINT `Course_ibfk_1` FOREIGN KEY (`level`) REFERENCES `Class` (`level`),
   CONSTRAINT `Course_ibfk_2` FOREIGN KEY (`teacherid`) REFERENCES `Teacher` (`teacherid`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,7 +64,7 @@ CREATE TABLE `Course` (
 
 LOCK TABLES `Course` WRITE;
 /*!40000 ALTER TABLE `Course` DISABLE KEYS */;
-INSERT INTO `Course` VALUES (1,'English',1,8),(2,'Hindi',1,13),(3,'Mathematics',8,8),(4,'Science',5,15),(5,'Science',6,15),(6,'Social Science',5,15),(7,'Physics',8,15);
+INSERT INTO `Course` VALUES (1,'English',1,8),(2,'Hindi',1,13),(3,'Mathematics',8,8),(4,'Science',5,15),(5,'Science',6,15),(6,'Social Science',5,15),(7,'Physics',8,15),(8,'Music',3,8);
 /*!40000 ALTER TABLE `Course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,10 +79,11 @@ CREATE TABLE `CoursePage` (
   `cpid` int(11) NOT NULL AUTO_INCREMENT,
   `courseid` int(11) DEFAULT NULL,
   `year` int(11) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`cpid`),
   KEY `courseid` (`courseid`),
   CONSTRAINT `CoursePage_ibfk_1` FOREIGN KEY (`courseid`) REFERENCES `Course` (`courseid`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +92,7 @@ CREATE TABLE `CoursePage` (
 
 LOCK TABLES `CoursePage` WRITE;
 /*!40000 ALTER TABLE `CoursePage` DISABLE KEYS */;
-INSERT INTO `CoursePage` VALUES (1,2,2019),(2,2,2020),(4,6,2019),(5,7,2020);
+INSERT INTO `CoursePage` VALUES (1,2,2019,1),(2,2,2020,1),(4,6,2019,1),(5,7,2020,0),(6,1,2019,1),(7,3,2019,1),(8,4,2019,1),(9,5,2019,1),(10,8,2019,1);
 /*!40000 ALTER TABLE `CoursePage` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,7 +118,7 @@ CREATE TABLE `Employee` (
 
 LOCK TABLES `Employee` WRITE;
 /*!40000 ALTER TABLE `Employee` DISABLE KEYS */;
-INSERT INTO `Employee` VALUES (1,10000),(2,17000),(4,NULL),(5,NULL),(6,NULL),(7,NULL),(8,NULL),(9,NULL),(10,NULL),(13,NULL),(14,NULL),(15,50000),(36,12345);
+INSERT INTO `Employee` VALUES (1,10000),(2,17000),(8,NULL),(9,NULL),(10,NULL),(13,NULL),(14,NULL),(15,50000),(36,12345);
 /*!40000 ALTER TABLE `Employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,7 +145,7 @@ CREATE TABLE `Employee_Role` (
 
 LOCK TABLES `Employee_Role` WRITE;
 /*!40000 ALTER TABLE `Employee_Role` DISABLE KEYS */;
-INSERT INTO `Employee_Role` VALUES (2,2),(2,3),(2,5),(4,3),(4,4),(5,2),(5,3),(5,4),(6,1),(8,1),(8,2),(8,3),(8,4),(8,5),(10,1),(10,2),(13,1),(14,1),(15,1),(36,2),(36,5);
+INSERT INTO `Employee_Role` VALUES (2,2),(2,3),(2,5),(8,1),(8,2),(8,3),(8,4),(8,5),(10,1),(10,2),(13,1),(14,1),(15,1),(36,2),(36,5);
 /*!40000 ALTER TABLE `Employee_Role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -166,7 +167,7 @@ CREATE TABLE `Enrollment` (
   KEY `level` (`level`),
   CONSTRAINT `Enrollment_ibfk_1` FOREIGN KEY (`studentid`) REFERENCES `Student` (`studentid`),
   CONSTRAINT `Enrollment_ibfk_2` FOREIGN KEY (`level`) REFERENCES `Class` (`level`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -175,7 +176,7 @@ CREATE TABLE `Enrollment` (
 
 LOCK TABLES `Enrollment` WRITE;
 /*!40000 ALTER TABLE `Enrollment` DISABLE KEYS */;
-INSERT INTO `Enrollment` VALUES (1,35,8,'ONGOING',NULL),(2,34,8,'ONGOING',NULL);
+INSERT INTO `Enrollment` VALUES (1,35,8,'ONGOING',2019),(2,34,8,'ONGOING',2019),(3,37,3,'ONGOING',2019);
 /*!40000 ALTER TABLE `Enrollment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -336,7 +337,7 @@ CREATE TABLE `Notification` (
 
 LOCK TABLES `Notification` WRITE;
 /*!40000 ALTER TABLE `Notification` DISABLE KEYS */;
-INSERT INTO `Notification` VALUES (4,2,'Hi','2019-10-13'),(5,2,'Assignment 1','2019-10-13'),(6,2,'Never cheat\r\n','2019-10-13'),(7,2,'Venkat has arrived.','2019-10-13'),(8,5,'Welcome to the new session!','2019-10-14');
+INSERT INTO `Notification` VALUES (4,2,'Hi','2019-10-13'),(5,2,'Assignment 1','2019-10-13'),(6,2,'Never cheat\r\n','2019-10-13'),(7,2,'Submit your assignment tomorrow.','2019-10-13'),(8,5,'Welcome to the new session!','2019-10-14');
 /*!40000 ALTER TABLE `Notification` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -364,7 +365,7 @@ CREATE TABLE `Result` (
 
 LOCK TABLES `Result` WRITE;
 /*!40000 ALTER TABLE `Result` DISABLE KEYS */;
-INSERT INTO `Result` VALUES (1,'A1',7),(2,'B2',7),(1,'A1',7),(2,'A1',7);
+INSERT INTO `Result` VALUES (1,'A1',7),(2,'B2',7);
 /*!40000 ALTER TABLE `Result` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -421,7 +422,7 @@ CREATE TABLE `Salary` (
 
 LOCK TABLES `Salary` WRITE;
 /*!40000 ALTER TABLE `Salary` DISABLE KEYS */;
-INSERT INTO `Salary` VALUES (12,1,1,10000,'November',2019,'2019-10-14'),(13,2,1,17000,'November',2019,'2019-10-14'),(14,4,1,0,'November',2019,'2019-10-14'),(15,5,1,0,'November',2019,'2019-10-14'),(16,6,1,0,'November',2019,'2019-10-14'),(17,7,1,0,'November',2019,'2019-10-14'),(18,8,1,0,'November',2019,'2019-10-14'),(19,9,1,0,'November',2019,'2019-10-14'),(20,10,1,0,'November',2019,'2019-10-14'),(21,13,1,0,'November',2019,'2019-10-14'),(22,14,1,0,'November',2019,'2019-10-14'),(23,15,1,50000,'November',2019,'2019-10-14');
+INSERT INTO `Salary` VALUES (12,1,1,10000,'November',2019,'2019-10-14'),(13,2,1,17000,'November',2019,'2019-10-14'),(18,8,1,0,'November',2019,'2019-10-14'),(19,9,1,0,'November',2019,'2019-10-14'),(20,10,1,0,'November',2019,'2019-10-14'),(21,13,1,0,'November',2019,'2019-10-14'),(22,14,1,0,'November',2019,'2019-10-14'),(23,15,1,50000,'November',2019,'2019-10-14');
 /*!40000 ALTER TABLE `Salary` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -445,7 +446,7 @@ CREATE TABLE `Student` (
 
 LOCK TABLES `Student` WRITE;
 /*!40000 ALTER TABLE `Student` DISABLE KEYS */;
-INSERT INTO `Student` VALUES (34),(35);
+INSERT INTO `Student` VALUES (34),(35),(37);
 /*!40000 ALTER TABLE `Student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -489,7 +490,7 @@ CREATE TABLE `User` (
   `gender` varchar(1) DEFAULT NULL,
   `type` enum('ADMIN','EMPLOYEE','STUDENT') DEFAULT NULL,
   PRIMARY KEY (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -498,7 +499,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (1,'piyushmaurya','$2a$10$6Emq/MgRKnrMUUTYyEHoO.aF2ocrnz57VLdaKLa6685dE0cjGL5em','Visvesaraya','Piyush Maurya','M','ADMIN'),(2,'nujan','$2a$10$Td7fW/jd/rdY1JbEzhb9Ye47qxVrhJCzpM9YmTylqH8pT3njn0Fky','India','Nujan','M','EMPLOYEE'),(3,'loading','$2a$10$TmOBqEHWZMNFBU14KZMgj./JbwUPd2kAxTRKwHR2Qy0KnBqVLWmHe','India','Loading','F','EMPLOYEE'),(4,'asish','$2a$10$wsYkoOOKedsL0TdWGua7Ne21k2ETTQOzlOj8Tbq9pDW4zel51dN5.','India','Pankaj','F','EMPLOYEE'),(5,'ASHISH','$2a$10$IfdWs9gGdbncztiNGb9lquc9FWiligREvut9EW4f2Gpf7FwPxDkfG','India','Pankaj','F','EMPLOYEE'),(6,'Ashish','$2a$10$oMLdJ0FUdlwRs1qe0lejp.5DqAZoJL.0hR3VvhEm6oAoCOBeqLYhe','India','Pankaj','F','EMPLOYEE'),(7,'piyush','$2a$10$8N0y0.s6iJRJBxCUgtqNAeSYxO8eneSQC92omWVZahc8I/vAI0MUy','India','Piyush Maury','M','STUDENT'),(8,'piyushmauryaa','$2a$10$cXU772CNUlXf7J.nJg7HzetOZTCadm0M8NFTgJUTHA1/tFNvRvBnG','India','Mayank Pathroliya','M','EMPLOYEE'),(9,'aaa','$2a$10$8Yz7YW1tDpUYS4P0CvyxFedgHzjThC9vGRbVXUiJKpSeX.kOHNVO2','India','AAA BBB','M','STUDENT'),(10,'xasa','$2a$10$iV8t4hu6sgoCyifIaX2NkuXuI7874Sd46pM9ff5OOY38wgUYTPxTK','India','Pankaj','M','EMPLOYEE'),(13,'nsvenkat','$2a$10$t61Y.LUPMcAZKcE3XsEoJ.4M349p7ZfPNsNz9u5rCcz6MBX9Aya.O','India','Narayana Shanmukha Venkat','M','EMPLOYEE'),(14,'nikhil','$2a$10$21D.zWQl5rpQ/vY0nnNDQub4nVF4wU3RLn7VuRHjVLKV.rFQPFXOy','India','Nikhil Kumar','M','EMPLOYEE'),(15,'ashishgupta','$2a$10$xYrwaCJu.fZlsOcCrqTkUeUwjq6MpOyoiUS2kyAk9WiTMMSbmKxMu','India','Ashish Gupta','M','EMPLOYEE'),(34,'nancy','$2a$10$vAvcSQ8SCi8.xMOniN79nuIN16lsMYd4uMGmzh5T3oVcp6CKUB8BW','India','Nancy','F','STUDENT'),(35,'frank','$2a$10$UJYlHBcHk7n6UEMe2UZXFOoQM4rGY0SZDQLDBAF8SdfwqqWBwBnTW','India','Frank','M','STUDENT'),(36,'hello','$2a$10$psqlsNs1WVpG6cxG7yLg5Off7Q7V2dvflgb1DADSitjqA1RgjHsgK','India','Hello','F','EMPLOYEE');
+INSERT INTO `User` VALUES (1,'piyushmaurya','$2a$10$6Emq/MgRKnrMUUTYyEHoO.aF2ocrnz57VLdaKLa6685dE0cjGL5em','Visvesaraya','Piyush Maurya','M','ADMIN'),(2,'nujan','$2a$10$Td7fW/jd/rdY1JbEzhb9Ye47qxVrhJCzpM9YmTylqH8pT3njn0Fky','India','Nujan','M','EMPLOYEE'),(8,'piyushmauryaa','$2a$10$cXU772CNUlXf7J.nJg7HzetOZTCadm0M8NFTgJUTHA1/tFNvRvBnG','India','Mayank Agrawal','M','EMPLOYEE'),(9,'aaa','$2a$10$8Yz7YW1tDpUYS4P0CvyxFedgHzjThC9vGRbVXUiJKpSeX.kOHNVO2','India','Shivam','M','STUDENT'),(10,'xasa','$2a$10$iV8t4hu6sgoCyifIaX2NkuXuI7874Sd46pM9ff5OOY38wgUYTPxTK','India','Pankaj','M','EMPLOYEE'),(13,'nsvenkat','$2a$10$t61Y.LUPMcAZKcE3XsEoJ.4M349p7ZfPNsNz9u5rCcz6MBX9Aya.O','India','Arun Kumar','M','EMPLOYEE'),(14,'nikhil','$2a$10$21D.zWQl5rpQ/vY0nnNDQub4nVF4wU3RLn7VuRHjVLKV.rFQPFXOy','India','Nikhil Kumar','M','EMPLOYEE'),(15,'ashishgupta','$2a$10$xYrwaCJu.fZlsOcCrqTkUeUwjq6MpOyoiUS2kyAk9WiTMMSbmKxMu','India','Ashish Gupta','M','EMPLOYEE'),(34,'nancy','$2a$10$vAvcSQ8SCi8.xMOniN79nuIN16lsMYd4uMGmzh5T3oVcp6CKUB8BW','India','Nancy','F','STUDENT'),(35,'frank','$2a$10$UJYlHBcHk7n6UEMe2UZXFOoQM4rGY0SZDQLDBAF8SdfwqqWBwBnTW','India','Frank','M','STUDENT'),(36,'hello','$2a$10$psqlsNs1WVpG6cxG7yLg5Off7Q7V2dvflgb1DADSitjqA1RgjHsgK','India','Radha','F','EMPLOYEE'),(37,'satyam','$2a$10$WATSGDm9JZXr6otVpJuNVOoqYDunQhU0muFRDPMnFsTnBTD1eED1y','India','Kumar Satyam','M','STUDENT');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -511,4 +512,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-14 16:43:18
+-- Dump completed on 2019-10-15 16:33:03
